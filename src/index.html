@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRAEZLYR WIELDER</title>
+    <link rel="stylesheet" href="./res/css/style.css">
+    <link rel="shortcut icon" href="./res/img/dw-logo.png" type="image/x-icon">
+</head>
+
+<body>
+    <div id="realtimepresented"></div>
+    <button id="muteAudio">MUTE AUDIO</button>
+    <button id="highDetailBtn">HIGH DETAIL</button>
+    <button id="inGameStoryRecapBtn">STORY RECAP</button>
+    <div id="lobby">
+        <h1 id="headline">DRAEZLYR WIELDER</h1>
+        <button id="play">PLAY</button>
+        <button id="story">STORY RECAP</button>
+        <a href="https://github.com/deesdav"> <button id="author">AUTHOR</button></a>
+        <button id="tutorial">TUTORIAL</button>
+    </div>
+    <div id="backToLobby">
+        <p>RETURN TO LOBBY AND START AGAIN?</p>
+        <button id="noLobby">NO</button>
+        <button id="yesLobby">YES</button>
+    </div>
+    <button id="skipIntroBtn">SKIP INTRO</button>
+    <div id="loader"></div>
+    <div id="storyRecap">
+        <h3>Recapitulation of the story</h3>
+        <p></p>
+        <a href="https://deesdav.github.io/draezlyr/"> <button id="playDraezlyr1">PLAY DRAEZLYR SWORD
+                MASSACRE</button></a>
+    </div>
+    <div id="inGameStoryRecap">
+        <h3>Recapitulation of the story</h3>
+        <p></p>
+        <a href="https://deesdav.github.io/draezlyr/"> <button id="playDraezlyr1">PLAY DRAEZLYR SWORD
+                MASSACRE</button></a>
+    </div>
+
+    <div id="storyinfo">
+        <p id="storyPart">After killing the King of Heaven, you gained more power and the ability to teleport to other
+            galaxies to kill even more enemies and become the most powerful draezlyr wielder in the universe</p>
+        <input type="text" id="storyPartInput" placeholder="Enter hero name:">
+        <br>
+        <button id="nextBtn">next</button>
+        <button id="sendInputBtn">send</button>
+    </div>
+
+    <div id="yourName"></div>
+    <div id="yourXPText">XP: <span id="yourXP">0</span></div>
+    <div id="yourDamageText">DAMAGE: <span id="damageInfo">1</span></div>
+    <div id="yourHPText">HEALTH: <span id="healthInfo">20</span></div>
+    <div id="yourShieldText">SHIELD: <span id="shieldInfo">OFF</span></div>
+    <div id="yourCriticalText">CRITICAL: <span id="criticalInfo">OFF</span></div>
+
+    <div id="planets">
+        <div id="dc-id"><img src="./res/img/dcBluePlanet2.gif" alt="photo" id="dcPlanet">
+            <div id="nameOfPlanetDC">Dc planet</div>
+        </div>
+        <div id="marvel-id"><img src="./res/img/marvelRedPlanet2.gif" alt="photo" id="marvelPlanet">
+            <div id="nameOfPlanet">Marvel Planet</div>
+        </div>
+        <div id="deesdav-id"><img src="./res/img/deesdavPlanet.png" alt="photo" id="deesdavPlanet">
+            <div id="nameOfPlanetDeesdav">Deesdav Planet into the dimension</div>
+        </div>
+        <div id="theEndOfTheGame">CONGRATULATIONS, YOU HAVE COMPLETED THE GAME AND THE AUTHOR DAVID GIVES YOU A 👍</div>
+        <button id="hell">HELL</button>
+        <button id="heaven">HEAVEN</button>
+        <button id="multiverse">MULTIVERSE</button>
+    </div>
+    <div id="winAndLoss">
+        <div id="yourWins">Ws: <span id="winsCounter">0</span></div>
+        <div id="yourLosses">Ls: <span id="lossesCounter">0</span></div>
+    </div>
+    <div id="lastLevelReward">
+        <h3 id="lastLevelRewardHeadline">reward for completing level 15</h3>
+        <img id="rewardOverview" src="./res/img/silver.hero.idle.gif" alt="marvel-planet-reward">
+        <img id="rewardOverview" src="./res/img/silver.hero.idle.gif" alt="deesdav-dimension-reward">
+        <img id="rewardOverview" src="./res/img/gold.hero.idle.gif" alt="dc-planet-reward">
+        <p>key: <span id="lastLevelRewardSwitch"></span></p>
+    </div>
+    <div id="levelsBox">
+        <h2 id="levelsText">Levels: 1-15</h2>
+
+        <div id="levelInfo">Enemy: <span id="enemyName"></span></div>
+        <div id="gridOfLevels">
+            <button id="levelONE">1</button>
+            <button id="levelTWO">2</button>
+            <button id="levelTHREE">3</button>
+            <button id="levelFOUR">4</button>
+            <button id="levelFIVE">5</button>
+            <button id="levelSIX">6</button>
+            <button id="levelSEVEN">7</button>
+            <button id="levelEIGHT">8</button>
+            <button id="levelNINE">9</button>
+            <button id="levelTEN">10</button>
+            <button id="levelELEVEN">11</button>
+            <button id="levelTWELVE">12</button>
+            <button id="levelTHIRTEEN">13</button>
+            <button id="levelFOURTEEN">14</button>
+            <button id="levelFIFTEEN">15</button>
+        </div>
+        <div id="gridOfLevelsDC">
+            <button id="dcLevelONE">1</button>
+            <button id="dcLevelTWO">2</button>
+            <button id="dcLevelTHREE">3</button>
+            <button id="dcLevelFOUR">4</button>
+            <button id="dcLevelFIVE">5</button>
+            <button id="dcLevelSIX">6</button>
+            <button id="dcLevelSEVEN">7</button>
+            <button id="dcLevelEIGHT">8</button>
+            <button id="dcLevelNINE">9</button>
+            <button id="dcLevelTEN">10</button>
+            <button id="dcLevelELEVEN">11</button>
+            <button id="dcLevelTWELVE">12</button>
+            <button id="dcLevelTHIRTEEN">13</button>
+            <button id="dcLevelFOURTEEN">14</button>
+            <button id="dcLevelFIFTEEN">15</button>
+        </div>
+    </div>
+    <button id="backBtn"></button>
+    <button id="backBtnDC"></button>
+    <div id="game" class="transition-bg" loading="eager">
+        <div id="yourHpTextPromName"><span id="yourHpTextValue">your HP:</span> <span id="yourHp">0</span></div>
+        <div id="enemyHpTextPromName"><span id="enemyHpTextValue">enemy HP:</span> <span id="enemyHp">0</span></div>
+        <div id="shield">SHIELD</div>
+        <div id="critical">CRITICAL</div>
+        <img src="./res/img/default.hero.idle.gif" alt="photo" id="heroIdle" loading="eager">
+        <img src="./res/img/default.hero.attack.gif" alt="photo" id="heroAttack" loading="eager">
+        <img src="" alt="photo" id="enemy" loading="eager">
+        <img src="" alt="photo" id="tutorialEnemy" loading="eager">
+    </div>
+    <div id="gameResult"></div>
+
+    <button id="shopBtn">shop</button>
+    <button id="infoBtn">info</button>
+    <div id="infoBox">
+        <div id="leftBox">
+            <h2>Info</h2>
+            <div>1. So, if you complete Marvel Planet, Deesdav Planet appears.</div>
+            <div>2. In Deesdav Planet, you need to earn 120 or more XP to unlock DC Planet. However, when you reach 120
+                XP, 100 XP will be deducted due to the higher difficulty. If you reach 150 XP, you will have to wait
+                until the countdown ends.</div>
+            <div>3. You can change the color of your hero by typing the current color on the keyboard. For example, if
+                your hero is yellow and you want a red color, just type 'r'. To change colors, you need to have
+                purchased them beforehand.</div>
+            <div>4. The default color is black and white, so type: 'd'.</div>
+            <div>5. Secret color ?<span title="7">?</span>?</div>
+            <div>6. After achieving the 20th round in the Multiverse Planet, the Hell
+                Planet appears. Additionally, after the 40th round and more, the Heaven Planet appears.</div>
+        </div>
+        <div id="infoMiddle"></div>
+        <div id="rightBox">
+            <h2>Table</h2>
+            <div style="overflow-y: auto;">
+                <table>
+                    <tr>
+                        <th>shortcuts to type</th>
+                        <th>hero colors</th>
+                    </tr>
+                    <tr>
+                        <td>r (or R)</td>
+                        <td>red hero color</td>
+                    </tr>
+                    <tr>
+                        <td>g (or G)</td>
+                        <td>green hero color</td>
+                    </tr>
+                    <tr>
+                        <td>b (or B)</td>
+                        <td>blue hero color</td>
+                    </tr>
+                    <tr>
+                        <td>y (or Y)</td>
+                        <td>yellow hero color</td>
+                    </tr>
+                    <tr>
+                        <td>d (or D)</td>
+                        <td>default black and white hero color</td>
+                    </tr>
+                    <tr>
+                        <td>? - just find out</td>
+                        <td>secret color</td>
+                    </tr>
+                    <tr>
+                        <td>space on keyboard</td>
+                        <td>shield upgrade</td>
+                    </tr>
+                    <tr>
+                        <td>c (or C)</td>
+                        <td>critical hit upgrade</td>
+                    </tr>
+                    <tr>
+                        <td>a (or A)</td>
+                        <td>attack hit on enemy instead of mouseclick</td>
+                    </tr>
+                    <tr>
+                        <td>b (or B)</td>
+                        <td>bronze hero color = reward from marvel planet</td>
+                    </tr>
+                    <tr>
+                        <td>s (or S)</td>
+                        <td>silver hero color = reward from deesdav dimension</td>
+                    </tr>
+                    <tr>
+                        <td>g (or G)</td>
+                        <td>gold hero color = reward from dc planet</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="shop">
+        <div id="merchant">
+            <h2>MERCHANT OFFER TO YOU</h2>
+            <button id="upgradeDamage" alt="damage">damage + 1</button>
+            <button id="upgradeHealth" alt="health">health + 5</button>
+            <button id="upgradeShield" alt="shield">shield = MAX HP + 10</button>
+            <button id="upgradeCritical" alt="critical">critical = enemy - 10</button>
+            <div id="costingMerchant">cost <span id="costOfUps">0</span> xp</div>
+        </div>
+
+
+        <div id="customization">
+            <h2>CUSTOMIZATION OF YOUR HERO</h2>
+            <button id="redColor">red color</button>
+            <button id="greenColor">green color</button>
+            <button id="blueColor">blue color</button>
+            <button id="yellowColor">yellow color</button>
+            <div id="costingCustomization">cost <span id="costOfColors">0</span> xp</div>
+            <div id="overview"><img id="overviewSrc" src="" alt="photo" srcset=""></div>
+        </div>
+
+    </div>
+    <button id="backBtnShop">back</button>
+    <div id="countDownText"><span id="countDown">60</span>s</div>
+    <div id="deesdavDimension">
+        <div id="dot">0</div>
+    </div>
+    <button id="collectionBtn">COLLECTION</button>
+    <div id="collectionsBox">
+        <div id="collectionsBoxHealine">List of enemies</div>
+        <div id="gridOfKilledEnemies">
+            <img src="./res/img/enemies/enemy.spiderman.png" id="spidermanKilledEnemy" alt="marvel" srcset="">
+            <img src="./res/img/enemies/enemy.hulk.png" id="hulkKilledEnemy" alt="marvel" srcset="">
+            <img src="./res/img/enemies/enemy.ironman.png" id="ironmanKilledEnemy" alt="marvel" srcset="">
+            <img src="./res/img/enemies/enemy.thor.png" id="thorKilledEnemy" alt="marvel" srcset="">
+            <img src="./res/img/enemies/enemy.blackwidow.png" id="blackwidowKilledEnemy" alt="marvel" srcset="">
+            <img src="./res/img/enemies/enemy.captainamerica.png" id="captainamericaKilledEnemy" alt="marvel" srcset="">
+            <img src="./res/img/enemies/enemy.doctorstrange.png" id="doctorstrangeKilledEnemy" alt="marvel" srcset="">
+            <img src="./res/img/enemies/enemy.venom.png" id="venomKilledEnemy" alt="marvel" srcset="">
+            <img src="./res/img/enemies/enemy.wolverine.png" id="wolverineKilledEnemy" alt="marvel" srcset="">
+            <img src="./res/img/enemies/enemy.deadpool.png" id="deadpoolKilledEnemy" alt="marvel" srcset="">
+            <img src="./res/img/enemies/enemy.blackpanther.png" id="blackpantherKilledEnemy" alt="marvel" srcset="">
+            <img src="./res/img/enemies/enemy.ghostrider.png" id="ghostriderKilledEnemy" alt="marvel" srcset="">
+            <img src="./res/img/enemies/enemy.loki.png" id="lokiKilledEnemy" alt="marvel" srcset="">
+            <img src="./res/img/enemies/enemy.captainamerica.png" id="captainmarvelKilledEnemy" alt="marvel"" srcset="">
+            <img src=" ./res/img/enemies/enemy.thanos.png" id="thanosKilledEnemy" alt="marvel" srcset="">
+            <img src="./res/img/enemies/enemy.dot.png" id="dotKilledEnemy" alt="deesdav-dimension" srcset="">
+            <img src="./res/img/enemies/enemy.batman.png" id="batmanKilledEnemy" alt="dc" srcset="">
+            <img src="./res/img/enemies/enemy.flash.png" id="flashKilledEnemy" alt="dc" srcset="">
+            <img src="./res/img/enemies/enemy.wonderwoman.png" id="wonderwomanKilledEnemy" alt="dc" srcset="">
+            <img src="./res/img/enemies/enemy.joker.png" id="jokerKilledEnemy" alt="dc" srcset="">
+            <img src="./res/img/enemies/enemy.superman.png" id="supermanKilledEnemy" alt="dc" srcset="">
+            <img src="./res/img/enemies/enemy.aquaman.png" id="aquamanKilledEnemy" alt="dc" srcset="">
+            <img src="./res/img/enemies/enemy.catwoman.png" id="catwomanKilledEnemy" alt="dc" srcset="">
+            <img src="./res/img/enemies/enemy.cyborg.png" id="cyborgKilledEnemy" alt="dc" srcset="">
+            <img src="./res/img/enemies/enemy.greenlantern.png" id="greenlanternKilledEnemy" alt="dc" srcset="">
+            <img src="./res/img/enemies/enemy.greenarrow.png" id="greenarrowKilledEnemy" alt="dc" srcset="">
+            <img src="./res/img/enemies/enemy.nightwing.png" id="nightwingKilledEnemy" alt="dc" srcset="">
+            <img src="./res/img/enemies/enemy.shazam.png" id="shazamKilledEnemy" alt="dc" srcset="">
+            <img src="./res/img/enemies/enemy.blackadam.png" id="blackadamKilledEnemy" alt="dc" srcset="">
+            <img src="./res/img/enemies/enemy.doctormanhattan.png" id="doctormanhattanKilledEnemy" alt="dc" srcset="">
+            <img src="./res/img/enemies/enemy.darkseid.png" id="darkseidKilledEnemy" alt="dc" srcset="">
+            <img src="./res/img/enemies/enemy.pikachu.png" id="pikachuKilledEnemy" alt="multiverse" srcset="">
+            <img src="./res/img/enemies/enemy.supermario.png" id="supermarioKilledEnemy" alt="multiverse" srcset="">
+            <img src="./res/img/enemies/enemy.groot.png" id="grootKilledEnemy" alt="multiverse" srcset="">
+            <img src="./res/img/enemies/enemy.robocop.png" id="robocopKilledEnemy" alt="multiverse" srcset="">
+            <img src="./res/img/enemies/enemy.predator.png" id="predatorKilledEnemy" alt="multiverse" srcset="">
+            <img src="./res/img/enemies/enemy.terminator.png" id="terminatorKilledEnemy" alt="multiverse" srcset="">
+            <img src="./res/img/enemies/enemy.geralt.png" id="geraltKilledEnemy" alt="multiverse" srcset="">
+            <img src="./res/img/enemies/enemy.doomslayer.png" id="doomslayerKilledEnemy" alt="multiverse" srcset="">
+            <img src="./res/img/enemies/enemy.solidsnake.png" id="solidsnakeKilledEnemy" alt="multiverse" srcset="">
+            <img src="./res/img/enemies/enemy.mandalorian.png" id="mandalorianKilledEnemy" alt="multiverse" srcset="">
+            <img src="./res/img/enemies/enemy.darthvader.png" id="darthvaderKilledEnemy" alt="multiverse" srcset="">
+            <img src="./res/img/enemies/enemy.naruto.png" id="narutoKilledEnemy" alt="multiverse" srcset="">
+            <img src="./res/img/enemies/enemy.goku.png" id="gokuKilledEnemy" alt="multiverse" srcset="">
+            <img src="./res/img/enemies/enemy.johnwick.png" id="johnwickKilledEnemy" alt="multiverse" srcset="">
+            <img src="./res/img/enemies/enemy.kratos.png" id="kratosKilledEnemy" alt="multiverse" srcset="">
+            <img src="./res/img/enemies/enemy.devil.png" id="devilKilledEnemy" alt="hell" srcset="">
+            <img src="./res/img/enemies/enemy.angel.png" id="angelKilledEnemy" alt="heaven" srcset="">
+
+        </div>
+        <div id="infoOfKilledEnemiesBox">
+            <p>Name: <span id="infoOfKilledEnemyName"></span></p>
+            <p>Damage per sec: <span id="infoOfKilledEnemyDamagePerSec"></span></p>
+            <p>HP: <span id="infoOfKilledEnemyHP"></span></p>
+            <p>LOCATION: <span id="infoOfKilledEnemyLocation"></span></p>
+
+            <img src="" id="viewPhoto" alt="photo" srcset="">
+        </div>
+    </div>
+    <audio id="audioButtonClick" src="" preload="auto"></audio>
+    <audio id="audioYouWin" src="" preload="auto"></audio>
+    <audio id="audioYouLost" src="" preload="auto"></audio>
+    <audio id="audioButtonClickMulti" src="" preload="auto"></audio>
+    <audio id="audioLobbyBackground" src="" preload="auto"></audio>
+    <script src="./res/js/script.js"></script>
+    <script src="./res/js/marvel-levels.js"></script>
+    <script src="./res/js/dc-levels.js"></script>
+</body>
+
+</html>
