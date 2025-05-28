@@ -70,7 +70,8 @@ body {
 
 #play,
 #author,
-#story, #tutorial {
+#story,
+#tutorial {
   font-size: 60px;
   padding: 20px;
   border-radius: 10px;
@@ -79,41 +80,6 @@ body {
   background-color: transparent;
   transition: 0.5s ease;
   text-transform: uppercase;
-}
-
-#storyRecap #playDraezlyr1 {
-  font-size: 34px;
-  padding: 20px;
-  border-radius: 10px;
-  border: 3px solid white;
-  cursor: pointer;
-  background-color: transparent;
-  transition: 0.5s ease;
-  text-transform: uppercase;
-  text-align: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, 150%);
-  color: white;
-  background-color: #000000;
-}
-#inGameStoryRecap #playDraezlyr1 {
-  font-size: 34px;
-  padding: 20px;
-  border-radius: 10px;
-  border: 3px solid white;
-  cursor: pointer;
-  background-color: transparent;
-  transition: 0.5s ease;
-  text-transform: uppercase;
-  text-align: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, 150%);
-  color: white;
-  background-color: #000000;
 }
 
 #skipIntroBtn {
@@ -136,17 +102,6 @@ body {
   color: rgb(0, 0, 0);
 }
 
-#storyRecap #playDraezlyr1 a {
-  text-decoration: none;
-  color: rgb(255, 255, 255);
-  background-color: rgb(0, 0, 0);
-}
-#inGameStoryRecap #playDraezlyr1 a {
-  text-decoration: none;
-  color: rgb(255, 255, 255);
-  background-color: rgb(0, 0, 0);
-}
-
 #play:hover {
   text-decoration: underline;
   color: white;
@@ -164,35 +119,9 @@ body {
   background-color: black;
 }
 
-#storyRecap #playDraezlyr1:hover {
-  text-decoration: underline;
-  color: black;
-  background-color: white;
-  border: 3px solid rgb(0, 0, 0);
-}
-#inGameStoryRecap #playDraezlyr1:hover {
-  text-decoration: underline;
-  color: black;
-  background-color: white;
-  border: 3px solid rgb(0, 0, 0);
-}
-
 #author a:hover {
   text-decoration: underline;
   color: white;
-}
-
-#storyRecap #playDraezlyr1 a:hover {
-  text-decoration: underline;
-  color: black;
-  background-color: white;
-  border: 3px solid rgb(0, 0, 0);
-}
-#inGameStoryRecap #playDraezlyr1 a:hover {
-  text-decoration: underline;
-  color: black;
-  background-color: white;
-  border: 3px solid rgb(0, 0, 0);
 }
 
 #story:hover {
@@ -224,7 +153,7 @@ body {
 }
 
 #storyinfo #nextBtn {
-  width: 200px;
+  width: 220px;
   color: white;
   background-color: black;
   padding: 1em;
@@ -237,7 +166,7 @@ body {
 }
 
 #storyinfo #sendInputBtn {
-  width: 200px;
+  width: 220px;
   color: white;
   background-color: black;
   padding: 1em;
@@ -276,6 +205,7 @@ body {
   left: 15px;
   font-size: x-large;
   z-index: 999;
+  text-shadow: 0 0 3.5px white;
 }
 
 #yourShieldText {
@@ -286,6 +216,7 @@ body {
   right: 25px;
   font-size: x-large;
   z-index: 999;
+  text-shadow: 0 0 3.5px white;
 }
 
 #yourCriticalText {
@@ -296,6 +227,7 @@ body {
   right: 25px;
   font-size: x-large;
   z-index: 999;
+  text-shadow: 0 0 3.5px white;
 }
 
 #yourXPText {
@@ -306,6 +238,7 @@ body {
   right: 25px;
   font-size: x-large;
   z-index: 999;
+  text-shadow: 0 0 3.5px white;
 }
 
 #yourHPText {
@@ -316,6 +249,7 @@ body {
   right: 15px;
   font-size: x-large;
   z-index: 999;
+  text-shadow: 0 0 3.5px white;
 }
 
 #yourDamageText {
@@ -326,6 +260,7 @@ body {
   right: 25px;
   font-size: x-large;
   z-index: 999;
+  text-shadow: 0 0 3.5px white;
 }
 
 #realtimepresented {
@@ -582,26 +517,12 @@ body {
   transform: translate(-50%, -50%);
 }
 
-#storyRecap {
-  padding: 1em;
-  position: relative;
-  top: 0;
-  padding-top: 220px;
-  font-size: xx-large;
-  display: none;
-  margin: 0 auto;
-  background-color: rgba(0, 0, 0, 0.931);
-  width: fit-content;
-  height: 100%;
-  color: white;
-  cursor: pointer;
-  text-transform: uppercase;
-}
+#storyRecap,
 #inGameStoryRecap {
   padding: 1em;
-  position: relative;
-  top: 0;
   padding-top: 220px;
+  position: relative;
+  top: 0%;
   font-size: xx-large;
   display: none;
   margin: 0 auto;
@@ -611,17 +532,104 @@ body {
   color: white;
   cursor: pointer;
   text-transform: uppercase;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#storyRecap h3 {
+  padding-bottom: 10px;
+  text-decoration: underline;
+  color: white;
+  font-size: xx-large;
+}
+#inGameStoryRecap h3 {
+  padding-bottom: 10px;
+  text-decoration: underline;
+  color: white;
+  font-size: xx-large;
 }
 
 #storyRecap p {
-  padding: 1em;
   color: white;
   font-size: xx-large;
 }
 #inGameStoryRecap p {
-  padding: 1em;
   color: white;
   font-size: xx-large;
+}
+
+#storyRecap #playDraezlyr1 {
+  font-size: 44px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 3px solid white;
+  cursor: pointer;
+  background-color: transparent;
+  transition: 0.5s ease;
+  text-transform: uppercase;
+  text-align: center;
+  color: white;
+  background-color: #000000;
+  display: block;
+  margin: 28px auto;
+}
+
+#inGameStoryRecap #playDraezlyr1 {
+  font-size: 44px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 3px solid white;
+  cursor: pointer;
+  background-color: transparent;
+  transition: 0.5s ease;
+  text-transform: uppercase;
+  text-align: center;
+  color: white;
+  background-color: #000000;
+  display: block;
+  margin: 28px auto;
+}
+
+#storyRecap a,
+#inGameStoryRecap a {
+  text-decoration: none;
+}
+
+#storyRecap #playDraezlyr1:hover {
+  text-decoration: underline;
+  color: black;
+  background-color: white;
+  border: 3px solid rgb(0, 0, 0);
+}
+#inGameStoryRecap #playDraezlyr1:hover {
+  text-decoration: underline;
+  color: black;
+  background-color: white;
+  border: 3px solid rgb(0, 0, 0);
+}
+
+#storyRecap #playDraezlyr1 a {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 0, 0);
+}
+#inGameStoryRecap #playDraezlyr1 a {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 0, 0);
+}
+
+#storyRecap #playDraezlyr1 a:hover {
+  text-decoration: underline;
+  color: black;
+  background-color: white;
+  border: 3px solid rgb(0, 0, 0);
+}
+#inGameStoryRecap #playDraezlyr1 a:hover {
+  text-decoration: underline;
+  color: black;
+  background-color: white;
+  border: 3px solid rgb(0, 0, 0);
 }
 
 #game {
@@ -645,10 +653,6 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   filter: saturate(120%) drop-shadow(0px 0px 1000px rgba(255, 0, 0, 0.518));
-}
-
-.transition-bg {
-  transition: background-image 0.5s ease-in-out;
 }
 
 #heroIdle {
@@ -701,8 +705,8 @@ body {
   border: 3px solid rgb(0, 0, 0);
 }
 #tutorialEnemy:hover {
- border: 3px solid red;
- border-radius: 10%;
+  border: 3px solid red;
+  border-radius: 10%;
 }
 
 #enemyName {
@@ -1175,7 +1179,7 @@ tr:nth-child(13) td:nth-child(2) {
   background-color: rgba(255, 0, 0, 0.875);
 }
 
-#greenColor {
+#emeraldColor {
   background-color: rgba(0, 255, 0, 0.875);
 }
 
@@ -1230,6 +1234,7 @@ tr:nth-child(13) td:nth-child(2) {
   position: absolute;
   top: 10px;
   right: 156px;
+  text-shadow: 0 0 3.5px white;
 }
 
 #winsCounter {
@@ -1464,7 +1469,7 @@ tr:nth-child(13) td:nth-child(2) {
   display: grid;
   margin: 0px auto;
   grid-template-columns: auto auto auto auto auto auto auto auto auto;
-  gap: 5px;
+  gap: 0.3px;
   height: fit-content;
   width: fit-content;
   transform: scale(0.9);
@@ -1475,7 +1480,7 @@ tr:nth-child(13) td:nth-child(2) {
 #gridOfKilledEnemies img {
   height: 80px;
   width: 80px;
-  padding: 1em;
+  padding: 0.9em;
   background-color: rgb(0, 0, 0);
 }
 
@@ -1604,6 +1609,55 @@ tr:nth-child(13) td:nth-child(2) {
   width: min-content;
 }
 
+#infoDetectionOfYourPC {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border: 3px solid white;
+  text-transform: uppercase;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: large;
+  height: auto;
+  width: 150px;
+}
+
+#yourAppearanceBox {
+  display: none;
+  position: absolute;
+  top: 180px;
+  right: 0;
+  border: 3px solid rgba(255, 255, 255, 0.304);
+  border-radius: 10px 0 0 10px;
+  text-transform: uppercase;
+  background-color: rgba(0, 0, 0, 0.112);
+  color: white;
+  text-align: center;
+  height: auto;
+  width: 130px;
+  padding: 1em;
+}
+
+#yourAppearanceBox h3 {
+  width: fit-content;
+  font-size: medium;
+  text-shadow: 0 0 3.5px white;
+}
+#yourAppearanceBox #heroIdleAppearance {
+  animation: none;
+  margin: 10px -100px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+  width: 70px;
+  padding: 1em;
+  transform: scale(3.7);
+}
+
 #lastLevelReward #rewardOverview[alt="marvel-planet-reward"] {
   margin: 0 auto;
   width: min-content;
@@ -1642,35 +1696,12 @@ tr:nth-child(13) td:nth-child(2) {
 }
 
 /*responsivita*/
-@media only screen and (max-width: 768px) {
-  body {
-    zoom: 60%;
-    position: relative;
-    top: 20%;
-    font-size: small;
-  }
-
-  #game {
-    width: 80%;
-    height: 80%;
-  }
-
-  #game {
-    height: 600px;
-    width: 666px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-}
-
-@media only screen and (max-width: 480px) {
+@media screen and (max-width: 768px) {
   body {
     zoom: 40%;
     position: relative;
-    top: 10%;
-    font-size: small;
+    top: 25%;
+    font-size: smaller;
   }
 
   #game {
@@ -1686,20 +1717,22 @@ tr:nth-child(13) td:nth-child(2) {
     left: 50%;
     transform: translate(-50%, -50%);
   }
-}
-
-@media only screen and (max-width: 375px) {
-  body {
-    zoom: 100%;
-    position: relative;
-    top: 0;
-    font-size: small;
+  #planets {
+    height: fit-content;
   }
-
-  #game {
-    width: 100%;
-    height: auto;
-    position: static;
-    transform: none;
+  #headline {
+    font-size: 80px;
+  }
+  #viewPhoto {
+    transform: scale(0.6);
+  }
+  #infoBox #leftBox {
+    font-size: x-large;
+  }
+  #infoBox #rightBox {
+    font-size: x-large;
+  }
+  #overview img {
+    transform: scale(0.8) translate(10%, -25%);
   }
 }
