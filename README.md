@@ -33,9 +33,9 @@ Pokud chceš vytvořit instalátor pro Windows/Linux/macOS, spusť následujíc�
 
     ```bash
     npm run make
-    ```
-    
-Výsledný instalační soubor se objeví ve složce out/. Ten lze poté spustit a nainstalovat aplikaci na plochu jako klasický desktopový program.
+```
+
+- Výsledný instalační soubor se objeví ve složce out/. Ten lze poté spustit a nainstalovat aplikaci na plochu jako klasický desktopový program.
 
 ## 📁 Struktura projektu
 
@@ -46,4 +46,3 @@ Výsledný instalační soubor se objeví ve složce out/. Ten lze poté spustit
     ├── public/         # Statické soubory
     ├── package.json    # Základní konfigurace projektu a skriptů
     └── vite.config.ts  # Konfigurace pro Vite
-    ```
