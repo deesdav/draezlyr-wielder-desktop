@@ -29,9 +29,10 @@
 
 ## 📁 Struktura projektu
 
-.
-├── src/            # Frontend - React komponenty
-├── electron/       # Main proces - Electron backend
-├── public/         # Statické soubory
-├── package.json    # Základní konfigurace projektu a skriptů
-└── vite.config.ts  # Konfigurace pro Vite
+    ```bash
+    .
+    ├── src/            # Frontend - React komponenty
+    ├── electron/       # Main proces - Electron backend
+    ├── public/         # Statické soubory
+    ├── package.json    # Základní konfigurace projektu a skriptů
+    └── vite.config.ts  # Konfigurace pro Vite
