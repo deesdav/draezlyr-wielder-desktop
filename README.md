@@ -1,6 +1,6 @@
 # Draezlyr Wielder Desktop
 
-**Draezlyr Wielder Desktop** je multiplatformní desktopová aplikace postavená na Electronu, Vite a Reactu. Projekt je ve vývoji a bude postupně doplňován o funkcionalitu.
+**Draezlyr Wielder Desktop** je multiplatformní desktopová aplikace postavená na Electronu, Vite a Reactu.
 
 ## 🔧 Použité technologie
 
