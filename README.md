@@ -34,7 +34,8 @@ Pokud chceš vytvořit instalátor pro Windows/Linux/macOS, spusť následujíc�
 ```bash
 npm run make
 ```
-# Výsledný instalační soubor se objeví ve složce out/. Ten lze poté spustit a nainstalovat aplikaci na plochu jako klasický desktopový program.
+
+Výsledný instalační soubor se objeví ve složce out/. Ten lze poté spustit a nainstalovat aplikaci na plochu jako klasický desktopový program.
 
 ## 📁 Struktura projektu
 
