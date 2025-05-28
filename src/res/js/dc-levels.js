@@ -15,15 +15,43 @@ for (let i = 0; i < dcLevels.length; i++) {
         enemyHpTextPromName.style.backgroundColor = "#333";
     }
     dcLevels[i].onmouseup = () => {
+        winAndLoss.style.display = "none";
+        highDetailBtn.style.display = "none";
         game.style.border = "5px solid";
         game.style.borderImage = "linear-gradient(to bottom, #333, rgb(0, 0, 77)";
         game.style.borderImageSlice = "1";
         planets.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.9), rgba(0, 0, 0, 0.9)), url(./res/img/dcLevelsBG.png)";
+
+        if (highDetail == true) {
+            for (let i = 0; i < detailedEnemies.length; i++) {
+                enemy.src = `./res/img/enemies/enemy.${detailedEnemies[i]}.gif`;
+            }
+            for (let i = 0; i < detailedEnemiesAndBGs.length; i++) {
+                game.style.backgroundImage = `linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/${detailedEnemiesAndBGs[i]}BG.gif)`;
+            }
+        } else if (highDetail == false) {
+
+            for (let i = 0; i < detailedEnemies.length; i++) {
+                enemy.src = `./res/img/enemies/enemy.${detailedEnemies[i]}.png`;
+            }
+            for (let i = 0; i < detailedEnemiesAndBGs.length; i++) {
+                game.style.backgroundImage = `linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/${detailedEnemiesAndBGs[i]}BG.png)`;
+            }
+        }
     }
 }
 
 //------------------------------------ dc level 1
 dcLevelONE.onclick = () => {
+    if (highDetail == true) {
+        heroIdle.src = "./res/img/silver.hero.idle.gif";
+        heroIdleAppearance.src = "./res/img/silver.hero.idle.gif";
+        heroAttack.src = "./res/img/silver.hero.attack.gif";
+    } else if (highDetail == false) {
+        heroIdle.src = "./res/img/silver.hero.idle.png";
+        heroIdleAppearance.src = "./res/img/silver.hero.idle.png";
+        heroAttack.src = "./res/img/silver.hero.attack.png";
+    }
     game.style.filter = "saturate(120%) drop-shadow(0px 0px 1000px rgba(0, 0, 255, 0.41))";
     enemyHpTextValue.innerText = `BATMAN´S HP:`;
     const nameValue = storyPartInput.value;
@@ -37,8 +65,14 @@ dcLevelONE.onclick = () => {
     if (dcLevelONECompleted) {
         console.log("Level is completed");
     }
-    game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.gif)";
-    enemy.src = "./res/img/enemies/enemy.batman.gif";
+
+    if (highDetail == true) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.gif)";
+        enemy.src = "./res/img/enemies/enemy.batman.gif";
+    } else if (highDetail == false) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.png)";
+        enemy.src = "./res/img/enemies/enemy.batman.png";
+    }
     levelInfo.style.display = "none";
     document.body.style.backgroundColor = "black";
     audioButtonClick.src = "./res/audio/buttonsound.mp3";
@@ -58,7 +92,7 @@ dcLevelONE.onclick = () => {
         yourHp.innerText -= 16;
         audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
         audioButtonClick.play();
-        //------------------------------------ hero heart beat
+        //------------------------------------ hero heart beat effect
         if (yourHp.innerText <= 10) {
             const startPulse = Math.floor(Math.random() * 20);
             setInterval(() => {
@@ -99,8 +133,14 @@ dcLevelONE.onclick = () => {
         }
         if (enemyHp.innerText <= 0 && yourHp.innerText > 0) {
             clearInterval(enemyDamage);
-            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/flashBG.gif)";
-            enemy.src = "./res/img/enemies/enemy.flash.gif";
+
+            if (highDetail == true) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/flashBG.gif)";
+                enemy.src = "./res/img/enemies/enemy.flash.gif";
+            } else if (highDetail == false) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/flashBG.png)";
+                enemy.src = "./res/img/enemies/enemy.flash.png";
+            }
             enemy.style.animation = "none";
             game.style.display = "none";
             gameResult.style.display = "block";
@@ -136,8 +176,13 @@ dcLevelTWO.onclick = () => {
     if (dcLevelONECompleted || dcLevelTWOCompleted) {
         console.log("Level is completed");
     }
-    game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/flashBG.gif)";
-    enemy.src = "./res/img/enemies/enemy.flash.gif";
+    if (highDetail == true) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/flashBG.gif)";
+        enemy.src = "./res/img/enemies/enemy.flash.gif";
+    } else if (highDetail == false) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/flashBG.png)";
+        enemy.src = "./res/img/enemies/enemy.flash.png";
+    }
     levelInfo.style.display = "none";
     document.body.style.backgroundColor = "black";
     audioButtonClick.src = "./res/audio/buttonsound.mp3";
@@ -157,7 +202,7 @@ dcLevelTWO.onclick = () => {
         yourHp.innerText -= 17;
         audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
         audioButtonClick.play();
-        //------------------------------------ hero heart beat
+        //------------------------------------ hero heart beat effect
         if (yourHp.innerText <= 10) {
             const startPulse = Math.floor(Math.random() * 20);
             setInterval(() => {
@@ -198,8 +243,14 @@ dcLevelTWO.onclick = () => {
         }
         if (enemyHp.innerText <= 0 && yourHp.innerText > 0) {
             clearInterval(enemyDamage);
-            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.gif)";
-            enemy.src = "./res/img/enemies/enemy.wonderwoman.gif";
+
+            if (highDetail == true) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.gif)";
+                enemy.src = "./res/img/enemies/enemy.wonderwoman.gif";
+            } else if (highDetail == false) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.png)";
+                enemy.src = "./res/img/enemies/enemy.wonderwoman.png";
+            }
             enemy.style.animation = "none";
             game.style.display = "none";
             gameResult.style.display = "block";
@@ -235,8 +286,13 @@ dcLevelTHREE.onclick = () => {
     if (dcLevelONECompleted || dcLevelTWOCompleted || dcLevelTHREECompleted) {
         console.log("Level is completed");
     }
-    game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.gif)";
-    enemy.src = "./res/img/enemies/enemy.wonderwoman.gif";
+    if (highDetail == true) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.gif)";
+        enemy.src = "./res/img/enemies/enemy.wonderwoman.gif";
+    } else if (highDetail == false) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.png)";
+        enemy.src = "./res/img/enemies/enemy.wonderwoman.png";
+    }
     levelInfo.style.display = "none";
     document.body.style.backgroundColor = "black";
     audioButtonClick.src = "./res/audio/buttonsound.mp3";
@@ -256,7 +312,7 @@ dcLevelTHREE.onclick = () => {
         yourHp.innerText -= 18;
         audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
         audioButtonClick.play();
-        //------------------------------------ hero heart beat
+        //------------------------------------ hero heart beat effect
         if (yourHp.innerText <= 10) {
             const startPulse = Math.floor(Math.random() * 20);
             setInterval(() => {
@@ -297,8 +353,14 @@ dcLevelTHREE.onclick = () => {
         }
         if (enemyHp.innerText <= 0 && yourHp.innerText > 0) {
             clearInterval(enemyDamage);
-            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.gif)";
-            enemy.src = "./res/img/enemies/enemy.joker.gif";
+
+            if (highDetail == true) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.gif)";
+                enemy.src = "./res/img/enemies/enemy.joker.gif";
+            } else if (highDetail == false) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.png)";
+                enemy.src = "./res/img/enemies/enemy.joker.png";
+            }
             enemy.style.animation = "none";
             game.style.display = "none";
             gameResult.style.display = "block";
@@ -333,8 +395,13 @@ dcLevelFOUR.onclick = () => {
     if (dcLevelONECompleted || dcLevelTWOCompleted || dcLevelTHREECompleted || dcLevelFOURCompleted) {
         console.log("Level is completed");
     }
-    game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.gif)";
-    enemy.src = "./res/img/enemies/enemy.joker.gif";
+    if (highDetail == true) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.gif)";
+        enemy.src = "./res/img/enemies/enemy.joker.gif";
+    } else if (highDetail == false) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.png)";
+        enemy.src = "./res/img/enemies/enemy.joker.png";
+    }
     levelInfo.style.display = "none";
     document.body.style.backgroundColor = "black";
     audioButtonClick.src = "./res/audio/buttonsound.mp3";
@@ -354,7 +421,7 @@ dcLevelFOUR.onclick = () => {
         yourHp.innerText -= 19;
         audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
         audioButtonClick.play();
-        //------------------------------------ hero heart beat
+        //------------------------------------ hero heart beat effect
         if (yourHp.innerText <= 10) {
             const startPulse = Math.floor(Math.random() * 20);
             setInterval(() => {
@@ -395,8 +462,14 @@ dcLevelFOUR.onclick = () => {
         }
         if (enemyHp.innerText <= 0 && yourHp.innerText > 0) {
             clearInterval(enemyDamage);
-            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.gif)";
-            enemy.src = "./res/img/enemies/enemy.superman.gif";
+
+            if (highDetail == true) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.gif)";
+                enemy.src = "./res/img/enemies/enemy.superman.gif";
+            } else if (highDetail == false) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.png)";
+                enemy.src = "./res/img/enemies/enemy.superman.png";
+            }
             enemy.style.animation = "none";
             game.style.display = "none";
             gameResult.style.display = "block";
@@ -431,8 +504,13 @@ dcLevelFIVE.onclick = () => {
     if (dcLevelONECompleted || dcLevelTWOCompleted || dcLevelTHREECompleted || dcLevelFOURCompleted || dcLevelFIVECompleted) {
         console.log("Level is completed");
     }
-    game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.gif)";
-    enemy.src = "./res/img/enemies/enemy.superman.gif";
+    if (highDetail == true) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.gif)";
+        enemy.src = "./res/img/enemies/enemy.superman.gif";
+    } else if (highDetail == false) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.png)";
+        enemy.src = "./res/img/enemies/enemy.superman.png";
+    }
     levelInfo.style.display = "none";
     document.body.style.backgroundColor = "black";
     audioButtonClick.src = "./res/audio/buttonsound.mp3";
@@ -452,7 +530,7 @@ dcLevelFIVE.onclick = () => {
         yourHp.innerText -= 20;
         audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
         audioButtonClick.play();
-        //------------------------------------ hero heart beat
+        //------------------------------------ hero heart beat effect
         if (yourHp.innerText <= 10) {
             const startPulse = Math.floor(Math.random() * 20);
             setInterval(() => {
@@ -493,8 +571,14 @@ dcLevelFIVE.onclick = () => {
         }
         if (enemyHp.innerText <= 0 && yourHp.innerText > 0) {
             clearInterval(enemyDamage);
-            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/aquamanBG.gif)";
-            enemy.src = "./res/img/enemies/enemy.aquaman.gif";
+
+            if (highDetail == true) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/aquamanBG.gif)";
+                enemy.src = "./res/img/enemies/enemy.aquaman.gif";
+            } else if (highDetail == false) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/aquamanBG.png)";
+                enemy.src = "./res/img/enemies/enemy.aquaman.png";
+            }
             enemy.style.animation = "none";
             game.style.display = "none";
             gameResult.style.display = "block";
@@ -529,8 +613,13 @@ dcLevelSIX.onclick = () => {
     if (dcLevelONECompleted || dcLevelTWOCompleted || dcLevelTHREECompleted || dcLevelFOURCompleted || dcLevelFIVECompleted || dcLevelSIXCompleted) {
         console.log("Level is completed");
     }
-    game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/aquamanBG.gif)";
-    enemy.src = "./res/img/enemies/enemy.aquaman.gif";
+    if (highDetail == true) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/aquamanBG.gif)";
+        enemy.src = "./res/img/enemies/enemy.aquaman.gif";
+    } else if (highDetail == false) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/aquamanBG.png)";
+        enemy.src = "./res/img/enemies/enemy.aquaman.png";
+    }
     levelInfo.style.display = "none";
     document.body.style.backgroundColor = "black";
     audioButtonClick.src = "./res/audio/buttonsound.mp3";
@@ -550,7 +639,7 @@ dcLevelSIX.onclick = () => {
         yourHp.innerText -= 21;
         audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
         audioButtonClick.play();
-        //------------------------------------ hero heart beat
+        //------------------------------------ hero heart beat effect
         if (yourHp.innerText <= 10) {
             const startPulse = Math.floor(Math.random() * 20);
             setInterval(() => {
@@ -591,8 +680,14 @@ dcLevelSIX.onclick = () => {
         }
         if (enemyHp.innerText <= 0 && yourHp.innerText > 0) {
             clearInterval(enemyDamage);
-            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.gif)";
-            enemy.src = "./res/img/enemies/enemy.catwoman.gif";
+
+            if (highDetail == true) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.gif)";
+                enemy.src = "./res/img/enemies/enemy.catwoman.gif";
+            } else if (highDetail == false) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.png)";
+                enemy.src = "./res/img/enemies/enemy.catwoman.png";
+            }
             enemy.style.animation = "none";
             game.style.display = "none";
             gameResult.style.display = "block";
@@ -627,8 +722,14 @@ dcLevelSEVEN.onclick = () => {
     if (dcLevelONECompleted || dcLevelTWOCompleted || dcLevelTHREECompleted || dcLevelFOURCompleted || dcLevelFIVECompleted || dcLevelSIXCompleted || dcLevelSEVENCompleted) {
         console.log("Level is completed");
     }
-    game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.gif)";
-    enemy.src = "./res/img/enemies/enemy.catwoman.gif";
+    if (highDetail == true) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.gif)";
+        enemy.src = "./res/img/enemies/enemy.catwoman.gif";
+    } else if (highDetail == false) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.png)";
+        enemy.src = "./res/img/enemies/enemy.catwoman.png";
+    }
+
     levelInfo.style.display = "none";
     document.body.style.backgroundColor = "black";
     audioButtonClick.src = "./res/audio/buttonsound.mp3";
@@ -648,7 +749,7 @@ dcLevelSEVEN.onclick = () => {
         yourHp.innerText -= 22;
         audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
         audioButtonClick.play();
-        //------------------------------------ hero heart beat
+        //------------------------------------ hero heart beat effect
         if (yourHp.innerText <= 10) {
             const startPulse = Math.floor(Math.random() * 20);
             setInterval(() => {
@@ -689,8 +790,14 @@ dcLevelSEVEN.onclick = () => {
         }
         if (enemyHp.innerText <= 0 && yourHp.innerText > 0) {
             clearInterval(enemyDamage);
-            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/cyborgBG.gif)";
-            enemy.src = "./res/img/enemies/enemy.cyborg.gif";
+
+            if (highDetail == true) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/cyborgBG.gif)";
+                enemy.src = "./res/img/enemies/enemy.cyborg.gif";
+            } else if (highDetail == false) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/cyborgBG.png)";
+                enemy.src = "./res/img/enemies/enemy.cyborg.png";
+            }
             enemy.style.animation = "none";
             game.style.display = "none";
             gameResult.style.display = "block";
@@ -725,8 +832,13 @@ dcLevelEIGHT.onclick = () => {
     if (dcLevelONECompleted || dcLevelTWOCompleted || dcLevelTHREECompleted || dcLevelFOURCompleted || dcLevelFIVECompleted || dcLevelSIXCompleted || dcLevelSEVENCompleted || dcLevelEIGHTCompleted) {
         console.log("Level is completed");
     }
-    game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/cyborgBG.gif)";
-    enemy.src = "./res/img/enemies/enemy.cyborg.gif";
+    if (highDetail == true) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/cyborgBG.gif)";
+        enemy.src = "./res/img/enemies/enemy.cyborg.gif";
+    } else if (highDetail == false) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/cyborgBG.png)";
+        enemy.src = "./res/img/enemies/enemy.cyborg.png";
+    }
     levelInfo.style.display = "none";
     document.body.style.backgroundColor = "black";
     audioButtonClick.src = "./res/audio/buttonsound.mp3";
@@ -746,7 +858,7 @@ dcLevelEIGHT.onclick = () => {
         yourHp.innerText -= 23;
         audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
         audioButtonClick.play();
-        //------------------------------------ hero heart beat
+        //------------------------------------ hero heart beat effect
         if (yourHp.innerText <= 10) {
             const startPulse = Math.floor(Math.random() * 20);
             setInterval(() => {
@@ -787,8 +899,14 @@ dcLevelEIGHT.onclick = () => {
         }
         if (enemyHp.innerText <= 0 && yourHp.innerText > 0) {
             clearInterval(enemyDamage);
-            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/greenlanternBG.gif)";
-            enemy.src = "./res/img/enemies/enemy.greenlantern.gif";
+
+            if (highDetail == true) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/greenlanternBG.gif)";
+                enemy.src = "./res/img/enemies/enemy.greenlantern.gif";
+            } else if (highDetail == false) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/greenlanternBG.png)";
+                enemy.src = "./res/img/enemies/enemy.greenlantern.png";
+            }
             enemy.style.animation = "none";
             game.style.display = "none";
             gameResult.style.display = "block";
@@ -823,8 +941,13 @@ dcLevelNINE.onclick = () => {
     if (dcLevelONECompleted || dcLevelTWOCompleted || dcLevelTHREECompleted || dcLevelFOURCompleted || dcLevelFIVECompleted || dcLevelSIXCompleted || dcLevelSEVENCompleted || dcLevelEIGHTCompleted || dcLevelNINECompleted) {
         console.log("Level is completed");
     }
-    game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/greenlanternBG.gif)";
-    enemy.src = "./res/img/enemies/enemy.greenlantern.gif";
+    if (highDetail == true) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/greenlanternBG.gif)";
+        enemy.src = "./res/img/enemies/enemy.greenlantern.gif";
+    } else if (highDetail == false) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/greenlanternBG.png)";
+        enemy.src = "./res/img/enemies/enemy.greenlantern.png";
+    }
     levelInfo.style.display = "none";
     document.body.style.backgroundColor = "black";
     audioButtonClick.src = "./res/audio/buttonsound.mp3";
@@ -844,7 +967,7 @@ dcLevelNINE.onclick = () => {
         yourHp.innerText -= 24;
         audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
         audioButtonClick.play();
-        //------------------------------------ hero heart beat
+        //------------------------------------ hero heart beat effect
         if (yourHp.innerText <= 10) {
             const startPulse = Math.floor(Math.random() * 20);
             setInterval(() => {
@@ -885,8 +1008,14 @@ dcLevelNINE.onclick = () => {
         }
         if (enemyHp.innerText <= 0 && yourHp.innerText > 0) {
             clearInterval(enemyDamage);
-            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/greenarrowBG.gif)";
-            enemy.src = "./res/img/enemies/enemy.greenarrow.gif";
+
+            if (highDetail == true) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/greenarrowBG.gif)";
+                enemy.src = "./res/img/enemies/enemy.greenarrow.gif";
+            } else if (highDetail == false) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/greenarrowBG.png)";
+                enemy.src = "./res/img/enemies/enemy.greenarrow.png";
+            }
             enemy.style.animation = "none";
             game.style.display = "none";
             gameResult.style.display = "block";
@@ -921,8 +1050,13 @@ dcLevelTEN.onclick = () => {
     if (dcLevelONECompleted || dcLevelTWOCompleted || dcLevelTHREECompleted || dcLevelFOURCompleted || dcLevelFIVECompleted || dcLevelSIXCompleted || dcLevelSEVENCompleted || dcLevelEIGHTCompleted || dcLevelNINECompleted || dcLevelTENCompleted) {
         console.log("Level is completed");
     }
-    game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/greenarrowBG.gif)";
-    enemy.src = "./res/img/enemies/enemy.greenarrow.gif";
+    if (highDetail == true) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/greenarrowBG.gif)";
+        enemy.src = "./res/img/enemies/enemy.greenarrow.gif";
+    } else if (highDetail == false) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/greenarrowBG.png)";
+        enemy.src = "./res/img/enemies/enemy.greenarrow.png";
+    }
     levelInfo.style.display = "none";
     document.body.style.backgroundColor = "black";
     audioButtonClick.src = "./res/audio/buttonsound.mp3";
@@ -942,7 +1076,7 @@ dcLevelTEN.onclick = () => {
         yourHp.innerText -= 25;
         audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
         audioButtonClick.play();
-        //------------------------------------ hero heart beat
+        //------------------------------------ hero heart beat effect
         if (yourHp.innerText <= 10) {
             const startPulse = Math.floor(Math.random() * 20);
             setInterval(() => {
@@ -983,8 +1117,14 @@ dcLevelTEN.onclick = () => {
         }
         if (enemyHp.innerText <= 0 && yourHp.innerText > 0) {
             clearInterval(enemyDamage);
-            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.gif)";
-            enemy.src = "./res/img/enemies/enemy.nightwing.gif";
+
+            if (highDetail == true) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.gif)";
+                enemy.src = "./res/img/enemies/enemy.nightwing.gif";
+            } else if (highDetail == false) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.png)";
+                enemy.src = "./res/img/enemies/enemy.nightwing.png";
+            }
             enemy.style.animation = "none";
             game.style.display = "none";
             gameResult.style.display = "block";
@@ -1019,8 +1159,13 @@ dcLevelELEVEN.onclick = () => {
     if (dcLevelONECompleted || dcLevelTWOCompleted || dcLevelTHREECompleted || dcLevelFOURCompleted || dcLevelFIVECompleted || dcLevelSIXCompleted || dcLevelSEVENCompleted || dcLevelEIGHTCompleted || dcLevelNINECompleted || dcLevelTENCompleted || dcLevelELEVENCompleted) {
         console.log("Level is completed");
     }
-    game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.gif)";
-    enemy.src = "./res/img/enemies/enemy.nightwing.gif";
+    if (highDetail == true) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.gif)";
+        enemy.src = "./res/img/enemies/enemy.nightwing.gif";
+    } else if (highDetail == false) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/batmanBG.png)";
+        enemy.src = "./res/img/enemies/enemy.nightwing.png";
+    }
     levelInfo.style.display = "none";
     document.body.style.backgroundColor = "black";
     audioButtonClick.src = "./res/audio/buttonsound.mp3";
@@ -1040,7 +1185,7 @@ dcLevelELEVEN.onclick = () => {
         yourHp.innerText -= 26;
         audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
         audioButtonClick.play();
-        //------------------------------------ hero heart beat
+        //------------------------------------ hero heart beat effect
         if (yourHp.innerText <= 10) {
             const startPulse = Math.floor(Math.random() * 20);
             setInterval(() => {
@@ -1081,8 +1226,14 @@ dcLevelELEVEN.onclick = () => {
         }
         if (enemyHp.innerText <= 0 && yourHp.innerText > 0) {
             clearInterval(enemyDamage);
-            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/shazamBG.gif)";
-            enemy.src = "./res/img/enemies/enemy.shazam.gif";
+
+            if (highDetail == true) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/shazamBG.gif)";
+                enemy.src = "./res/img/enemies/enemy.shazam.gif";
+            } else if (highDetail == false) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/shazamBG.png)";
+                enemy.src = "./res/img/enemies/enemy.shazam.png";
+            }
             enemy.style.animation = "none";
             game.style.display = "none";
             gameResult.style.display = "block";
@@ -1117,8 +1268,13 @@ dcLevelTWELVE.onclick = () => {
     if (dcLevelONECompleted || dcLevelTWOCompleted || dcLevelTHREECompleted || dcLevelFOURCompleted || dcLevelFIVECompleted || dcLevelSIXCompleted || dcLevelSEVENCompleted || dcLevelEIGHTCompleted || dcLevelNINECompleted || dcLevelTENCompleted || dcLevelELEVENCompleted || dcLevelTWELVECompleted) {
         console.log("Level is completed");
     }
-    game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/shazamBG.gif)";
-    enemy.src = "./res/img/enemies/enemy.shazam.gif";
+    if (highDetail == true) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/shazamBG.gif)";
+        enemy.src = "./res/img/enemies/enemy.shazam.gif";
+    } else if (highDetail == false) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/shazamBG.png)";
+        enemy.src = "./res/img/enemies/enemy.shazam.png";
+    }
     levelInfo.style.display = "none";
     document.body.style.backgroundColor = "black";
     audioButtonClick.src = "./res/audio/buttonsound.mp3";
@@ -1138,7 +1294,7 @@ dcLevelTWELVE.onclick = () => {
         yourHp.innerText -= 27;
         audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
         audioButtonClick.play();
-        //------------------------------------ hero heart beat
+        //------------------------------------ hero heart beat effect
         if (yourHp.innerText <= 10) {
             const startPulse = Math.floor(Math.random() * 20);
             setInterval(() => {
@@ -1179,8 +1335,14 @@ dcLevelTWELVE.onclick = () => {
         }
         if (enemyHp.innerText <= 0 && yourHp.innerText > 0) {
             clearInterval(enemyDamage);
-            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/blackadamBG.gif)";
-            enemy.src = "./res/img/enemies/enemy.blackadam.gif";
+
+            if (highDetail == true) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/blackadamBG.gif)";
+                enemy.src = "./res/img/enemies/enemy.blackadam.gif";
+            } else if (highDetail == false) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/blackadamBG.png)";
+                enemy.src = "./res/img/enemies/enemy.blackadam.png";
+            }
             enemy.style.animation = "none";
             game.style.display = "none";
             gameResult.style.display = "block";
@@ -1215,8 +1377,13 @@ dcLevelTHIRTEEN.onclick = () => {
     if (dcLevelONECompleted || dcLevelTWOCompleted || dcLevelTHREECompleted || dcLevelFOURCompleted || dcLevelFIVECompleted || dcLevelSIXCompleted || dcLevelSEVENCompleted || dcLevelEIGHTCompleted || dcLevelNINECompleted || dcLevelTENCompleted || dcLevelELEVENCompleted || dcLevelTWELVECompleted || dcLevelTHIRTEENCompleted) {
         console.log("Level is completed");
     }
-    game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/blackadamBG.gif)";
-    enemy.src = "./res/img/enemies/enemy.blackadam.gif";
+    if (highDetail == true) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/blackadamBG.gif)";
+        enemy.src = "./res/img/enemies/enemy.blackadam.gif";
+    } else if (highDetail == false) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/blackadamBG.png)";
+        enemy.src = "./res/img/enemies/enemy.blackadam.png";
+    }
     levelInfo.style.display = "none";
     document.body.style.backgroundColor = "black";
     audioButtonClick.src = "./res/audio/buttonsound.mp3";
@@ -1236,7 +1403,7 @@ dcLevelTHIRTEEN.onclick = () => {
         yourHp.innerText -= 28;
         audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
         audioButtonClick.play();
-        //------------------------------------ hero heart beat
+        //------------------------------------ hero heart beat effect
         if (yourHp.innerText <= 10) {
             const startPulse = Math.floor(Math.random() * 20);
             setInterval(() => {
@@ -1277,8 +1444,14 @@ dcLevelTHIRTEEN.onclick = () => {
         }
         if (enemyHp.innerText <= 0 && yourHp.innerText > 0) {
             clearInterval(enemyDamage);
-            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/doctormanhattanBG.gif)";
-            enemy.src = "./res/img/enemies/enemy.doctormanhattan.gif";
+
+            if (highDetail == true) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/doctormanhattanBG.gif)";
+                enemy.src = "./res/img/enemies/enemy.doctormanhattan.gif";
+            } else if (highDetail == false) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/doctormanhattanBG.png)";
+                enemy.src = "./res/img/enemies/enemy.doctormanhattan.png";
+            }
             enemy.style.animation = "none";
             game.style.display = "none";
             gameResult.style.display = "block";
@@ -1313,8 +1486,13 @@ dcLevelFOURTEEN.onclick = () => {
     if (dcLevelONECompleted || dcLevelTWOCompleted || dcLevelTHREECompleted || dcLevelFOURCompleted || dcLevelFIVECompleted || dcLevelSIXCompleted || dcLevelSEVENCompleted || dcLevelEIGHTCompleted || dcLevelNINECompleted || dcLevelTENCompleted || dcLevelELEVENCompleted || dcLevelTWELVECompleted || dcLevelTHIRTEENCompleted || dcLevelFOURTEENCompleted) {
         console.log("Level is completed");
     }
-    game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/doctormanhattanBG.gif)";
-    enemy.src = "./res/img/enemies/enemy.doctormanhattan.gif";
+    if (highDetail == true) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/doctormanhattanBG.gif)";
+        enemy.src = "./res/img/enemies/enemy.doctormanhattan.gif";
+    } else if (highDetail == false) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/doctormanhattanBG.png)";
+        enemy.src = "./res/img/enemies/enemy.doctormanhattan.png";
+    }
     levelInfo.style.display = "none";
     document.body.style.backgroundColor = "black";
     audioButtonClick.src = "./res/audio/buttonsound.mp3";
@@ -1334,7 +1512,7 @@ dcLevelFOURTEEN.onclick = () => {
         yourHp.innerText -= 29;
         audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
         audioButtonClick.play();
-        //------------------------------------ hero heart beat
+        //------------------------------------ hero heart beat effect
         if (yourHp.innerText <= 10) {
             const startPulse = Math.floor(Math.random() * 20);
             setInterval(() => {
@@ -1375,8 +1553,14 @@ dcLevelFOURTEEN.onclick = () => {
         }
         if (enemyHp.innerText <= 0 && yourHp.innerText > 0) {
             clearInterval(enemyDamage);
-            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/darkseidBG.gif)";
-            enemy.src = "./res/img/enemies/enemy.darkseid.gif";
+
+            if (highDetail == true) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/darkseidBG.gif)";
+                enemy.src = "./res/img/enemies/enemy.darkseid.gif";
+            } else if (highDetail == false) {
+                game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/darkseidBG.png)";
+                enemy.src = "./res/img/enemies/enemy.darkseid.png";
+            }
             enemy.style.animation = "none";
             game.style.display = "none";
             gameResult.style.display = "block";
@@ -1411,8 +1595,13 @@ dcLevelFIFTEEN.onclick = () => {
     if (dcLevelONECompleted || dcLevelTWOCompleted || dcLevelTHREECompleted || dcLevelFOURCompleted || dcLevelFIVECompleted || dcLevelSIXCompleted || dcLevelSEVENCompleted || dcLevelEIGHTCompleted || dcLevelNINECompleted || dcLevelTENCompleted || dcLevelELEVENCompleted || dcLevelTWELVECompleted || dcLevelTHIRTEENCompleted || dcLevelFOURTEENCompleted || dcLevelFIFTEENCompleted) {
         console.log("Level is completed");
     }
-    game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/darkseidBG.gif)";
-    enemy.src = "./res/img/enemies/enemy.darkseid.gif";
+    if (highDetail == true) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/darkseidBG.gif)";
+        enemy.src = "./res/img/enemies/enemy.darkseid.gif";
+    } else if (highDetail == false) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/darkseidBG.png)";
+        enemy.src = "./res/img/enemies/enemy.darkseid.png";
+    }
     levelInfo.style.display = "none";
     document.body.style.backgroundColor = "black";
     audioButtonClick.src = "./res/audio/buttonsound.mp3";
@@ -1432,7 +1621,7 @@ dcLevelFIFTEEN.onclick = () => {
         yourHp.innerText -= 30;
         audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
         audioButtonClick.play();
-        //------------------------------------ hero heart beat
+        //------------------------------------ hero heart beat effect
         if (yourHp.innerText <= 10) {
             const startPulse = Math.floor(Math.random() * 20);
             setInterval(() => {

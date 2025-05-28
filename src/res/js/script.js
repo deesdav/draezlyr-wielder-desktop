@@ -48,7 +48,7 @@ const healthInfo = document.getElementById("healthInfo");
 const shieldInfo = document.getElementById("shieldInfo");
 const criticalInfo = document.getElementById("criticalInfo");
 const redColor = document.getElementById("redColor");
-const greenColor = document.getElementById("greenColor");
+const emeraldColor = document.getElementById("emeraldColor");
 const blueColor = document.getElementById("blueColor");
 const yellowColor = document.getElementById("yellowColor");
 const costOfColors = document.getElementById("costOfColors");
@@ -66,6 +66,9 @@ const backToLobby = document.getElementById("backToLobby");
 const noLobby = document.getElementById("noLobby");
 const yesLobby = document.getElementById("yesLobby");
 const inGameStoryRecapBtn = document.getElementById("inGameStoryRecapBtn");
+const infoDetectionOfYourPC = document.getElementById("infoDetectionOfYourPC");
+const yourAppearanceBox = document.getElementById("yourAppearanceBox");
+const heroIdleAppearance = document.getElementById("heroIdleAppearance");
 
 const levelsText = document.getElementById("levelsText");
 const gridOfLevels = document.getElementById("gridOfLevels");
@@ -136,18 +139,32 @@ const viewPhoto = document.getElementById("viewPhoto");
 //------------------------------------ detection of slow PCs
 const ram = navigator.deviceMemory;
 const cpu = navigator.hardwareConcurrency;
-setInterval(() => {
-    console.log(`your ram: ${ram}GB`)
-    console.log(`your cpu cores: ${cpu}`)
-}, 1500);
 
+document.addEventListener("DOMContentLoaded", function () {
+    infoDetectionOfYourPC.innerText = `YOUR PC HAS CPU CORE: ${cpu} AND ESTIMATED RAM: ${ram}GB`;
+});
 
 //------------------------------------ hight detail and low detail
 let highDetail = true;
 const highDetailBtn = document.getElementById("highDetailBtn");
 
-const gifPlanets = [marvelPlanet, dcPlanet, heroIdle, heroAttack, rewardOverview]
-const gifPlanetsSrc = ["marvelRedPlanet2", "dcBluePlanet2", "default.hero.idle", "default.hero.attack", "bronze.hero.idle", "silver.hero.idle", "gold.hero.idle"]
+const gifPlanetsAndRewardOverview = [marvelPlanet, dcPlanet, rewardOverview]
+
+const gifPlanetsAndRewardOverviewSrc = ["marvelRedPlanet2", "dcBluePlanet2", "tan.hero.idle", "silver.hero.idle", "gold.hero.idle"]
+
+
+const detailedEnemies = ["spiderman", "hulk", "ironman", "thor", "blackwidow", "captainamerica", "doctorstrange",
+    "venom", "wolverine", "deadpool", "blackpanther", "ghostrider", "loki", "captainmarvel", "thanos", "dot", "batman", "flash",
+    "wonderwoman", "joker", "superman", "aquaman", "catwoman", "cyborg", "greenlantern", "greenarrow", "nightwing", "shazam",
+    "blackadam", "doctormanhattan", "darkseid", "pikachu", "supermario", "groot", "robocop", "predator", "terminator", "geralt",
+    "doomslayer", "solidsnake", "mandalorian", "darthvader", "naruto", "goku", "johnwick", "kratos", "devil", "angel"];
+
+const detailedEnemiesAndBGs = ["spiderman", "hulk", "ironman", "thor", "blackwidow", "captainamerica", "doctorstrange",
+    "venom", "wolverine", "deadpool", "blackpanther", "ghostrider", "loki", "captainmarvel", "thanos", "dot", "batman", "flash",
+    "wonderwoman", "joker", "superman", "aquaman", "catwoman", "cyborg", "greenlantern", "greenarrow", "nightwing", "shazam",
+    "blackadam", "doctormanhattan", "darkseid", "pikachu", "supermario", "groot", "robocop", "predator", "terminator", "geralt",
+    "doomslayer", "solidsnake", "mandalorian", "darthvader", "naruto", "goku", "johnwick", "kratos", "devil", "angel"];
+
 
 highDetailBtn.onclick = () => {
     if (highDetailBtn.innerText == "HIGH DETAIL") {
@@ -158,31 +175,44 @@ highDetailBtn.onclick = () => {
         highDetailBtn.innerText = "HIGH DETAIL";
     }
 
-    if (highDetail == true) {
-        for (let i = 0; i < gifPlanets.length; i++) {
-            gifPlanets[i].src = `./res/img/${gifPlanetsSrc[i]}.gif`;
-        }
-        if (rewardOverview.alt == "marvel-planet-reward") {
-            gifPlanets[4].src = `./res/img/${gifPlanetsSrc[4]}.gif`
-        }
-        if (rewardOverview.alt == "deesdav-dimension-reward") {
-            gifPlanets[4].src = `./res/img/${gifPlanetsSrc[5]}.gif`
-        }
-        if (rewardOverview.alt == "dc-planet-reward") {
-            gifPlanets[4].src = `./res/img/${gifPlanetsSrc[6]}.gif`
-        }
+    if (highDetail) {
+        heroIdle.src = "./res/img/default.hero.idle.gif";
+        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
+        heroAttack.src = "./res/img/default.hero.attack.gif";
     } else if (highDetail == false) {
-        for (let i = 0; i < gifPlanets.length; i++) {
-            gifPlanets[i].src = `./res/img/${gifPlanetsSrc[i]}.png`;
-        }
-        if (rewardOverview.alt == "marvel-planet-reward") {
-            gifPlanets[4].src = `./res/img/${gifPlanetsSrc[4]}.png`
-        }
-        if (rewardOverview.alt == "deesdav-dimension-reward") {
-            gifPlanets[4].src = `./res/img/${gifPlanetsSrc[5]}.png`
-        }
-        if (rewardOverview.alt == "dc-planet-reward") {
-            gifPlanets[4].src = `./res/img/${gifPlanetsSrc[6]}.png`
+        heroIdle.src = "./res/img/default.hero.idle.png";
+        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
+        heroAttack.src = "./res/img/default.hero.attack.png";
+    }
+
+    document.body.onmouseover = () => {
+        if (highDetail) {
+            for (let i = 0; i < gifPlanetsAndRewardOverview.length; i++) {
+                gifPlanetsAndRewardOverview[i].src = `./res/img/${gifPlanetsAndRewardOverviewSrc[i]}.gif`;
+            }
+
+            if (rewardOverview.alt == "marvel-planet-reward") {
+                gifPlanetsAndRewardOverview[2].src = `./res/img/${gifPlanetsAndRewardOverviewSrc[2]}.gif`
+            }
+            if (rewardOverview.alt == "deesdav-dimension-reward") {
+                gifPlanetsAndRewardOverview[2].src = `./res/img/${gifPlanetsAndRewardOverviewSrc[3]}.gif`
+            }
+            if (rewardOverview.alt == "dc-planet-reward") {
+                gifPlanetsAndRewardOverview[2].src = `./res/img/${gifPlanetsAndRewardOverviewSrc[4]}.gif`
+            }
+        } else if (highDetail == false) {
+            for (let i = 0; i < gifPlanetsAndRewardOverview.length; i++) {
+                gifPlanetsAndRewardOverview[i].src = `./res/img/${gifPlanetsAndRewardOverviewSrc[i]}.png`;
+            }
+            if (rewardOverview.alt == "marvel-planet-reward") {
+                gifPlanetsAndRewardOverview[2].src = `./res/img/${gifPlanetsAndRewardOverviewSrc[2]}.png`
+            }
+            if (rewardOverview.alt == "deesdav-dimension-reward") {
+                gifPlanetsAndRewardOverview[2].src = `./res/img/${gifPlanetsAndRewardOverviewSrc[3]}.png`
+            }
+            if (rewardOverview.alt == "dc-planet-reward") {
+                gifPlanetsAndRewardOverview[2].src = `./res/img/${gifPlanetsAndRewardOverviewSrc[4]}.png`
+            }
         }
     }
 }
@@ -235,6 +265,7 @@ const audioButtonClickMulti = document.getElementById("audioButtonClickMulti");
 const audioLobbyBackground = document.getElementById("audioLobbyBackground");
 const audioYouWin = document.getElementById("audioYouWin");
 const audioYouLost = document.getElementById("audioYouLost");
+const audioGameBackground = document.getElementById("audioGameBackground");
 
 const muteAudio = document.getElementById("muteAudio");
 
@@ -250,18 +281,20 @@ muteAudio.onclick = () => {
 }
 
 function toggleMute() {
-    if (audioButtonClick.muted || audioButtonClickMulti.muted || audioLobbyBackground.muted || audioYouWin.muted || audioYouLost.muted) {
+    if (audioButtonClick.muted || audioButtonClickMulti.muted || audioLobbyBackground.muted || audioYouWin.muted || audioYouLost.muted || audioGameBackground.muted) {
         audioButtonClick.muted = false;
         audioButtonClickMulti.muted = false;
         audioLobbyBackground.muted = false;
         audioYouWin.muted = false;
         audioYouLost.muted = false;
+        audioGameBackground.muted = false;
     } else {
         audioButtonClick.muted = true;
         audioButtonClickMulti.muted = true;
         audioLobbyBackground.muted = true;
         audioYouWin.muted = true;
         audioYouLost.muted = true;
+        audioGameBackground.muted = true;
     }
 }
 
@@ -271,6 +304,7 @@ function toggleUnMute() {
     audioLobbyBackground.muted = !audioLobbyBackground.muted;
     audioYouWin.muted = !audioYouWin.muted;
     audioYouLost.muted = !audioYouLost.muted;
+    audioGameBackground.muted = !audioGameBackground.muted;
 }
 
 //------------------------------------ multiverse
@@ -333,6 +367,9 @@ multiverse.onclick = () => {
     const randomEnemy = Math.floor(Math.random() * 15);
     roundValueCounter++;
     yourName.style.display = "block";
+    winAndLoss.style.display = "none";
+    highDetailBtn.style.display = "none";
+    dcPlanet.style.pointerEvents = "none";
     game.style.border = "5px solid";
     game.style.borderImage = "linear-gradient(to bottom, #333, rgba(255, 0, 2555, 0.41)";
     game.style.borderImageSlice = "1";
@@ -340,14 +377,34 @@ multiverse.onclick = () => {
     //------------------------------------ enemy pikachu
     if (randomEnemy == 0) {
         game.style.boxShadow = "0 0 120px yellow inset";
-        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/pikachuBG.png)";
-        enemy.src = "./res/img/enemies/enemy.pikachu.png";
+        if (highDetail) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/pikachuBG.gif)";
+            enemy.src = "./res/img/enemies/enemy.pikachu.gif";
+        } else if (highDetail == false) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/pikachuBG.png)";
+            enemy.src = "./res/img/enemies/enemy.pikachu.png";
+        }
         enemyHpTextValue.innerText = `PIKACHU´S HP:`;
         enemyHp.innerText = pikachuHP;
         const enemyDamage = setInterval(() => {
             yourHp.innerText -= 31;
             audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
             audioButtonClick.play();
+            //------------------------------------ hero heart beat effect
+            if (yourHp.innerText <= 10) {
+                const startPulse = Math.floor(Math.random() * 20);
+                setInterval(() => {
+                    startPulse;
+                }, 500);
+                const endPulse = Math.floor(Math.random() * 25);
+                setInterval(() => {
+                    endPulse;
+                }, 500);
+                console.log(`${startPulse} and ${endPulse}`);
+                heroIdle.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+                heroAttack.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+
+            }
             if (yourHp.innerText <= 0) {
                 clearInterval(enemyDamage);
 
@@ -384,19 +441,7 @@ multiverse.onclick = () => {
                     gameResult.innerText = `${nameValue} won`;
                 }
                 winsCounter.innerText++;
-                if (hellBossCompleted == false) {
-                    if (roundValueCounter > 20 && (winsCounter.innerText > lossesCounter.innerText)) {
-                        console.log("hell is here");
-                        hell.style.display = "block";
-                    }
-                }
-                if (heavenBossCompleted == false) {
-                    if (roundValueCounter > 40 && (winsCounter.innerText > lossesCounter.innerText) && hell.style.display == "none") {
-                        console.log("heaven is here");
-                        hell.style.display = "none";
-                        heaven.style.display = "block";
-                    }
-                }
+
                 audioYouWin.src = "./res/audio/youWin.mp3";
                 audioYouWin.play();
                 yourXPValue += yourXPIncrease;
@@ -411,14 +456,35 @@ multiverse.onclick = () => {
     //------------------------------------ enemy super mario
     if (randomEnemy == 1) {
         game.style.boxShadow = "0 0 120px red inset";
-        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/supermarioBG.png)";
-        enemy.src = "./res/img/enemies/enemy.supermario.png";
+
+        if (highDetail) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/supermarioBG.gif)";
+            enemy.src = "./res/img/enemies/enemy.supermario.gif";
+        } else if (highDetail == false) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/supermarioBG.png)";
+            enemy.src = "./res/img/enemies/enemy.supermario.png";
+        }
         enemyHpTextValue.innerText = `SUPER MARIO´S HP:`;
         enemyHp.innerText = supermarioHP;
         const enemyDamage = setInterval(() => {
             yourHp.innerText -= 32;
             audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
             audioButtonClick.play();
+            //------------------------------------ hero heart beat effect
+            if (yourHp.innerText <= 10) {
+                const startPulse = Math.floor(Math.random() * 20);
+                setInterval(() => {
+                    startPulse;
+                }, 500);
+                const endPulse = Math.floor(Math.random() * 25);
+                setInterval(() => {
+                    endPulse;
+                }, 500);
+                console.log(`${startPulse} and ${endPulse}`);
+                heroIdle.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+                heroAttack.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+
+            }
             if (yourHp.innerText <= 0) {
                 clearInterval(enemyDamage);
 
@@ -439,6 +505,7 @@ multiverse.onclick = () => {
                 yourHp.innerText = yourHpValue;
                 backBtn.style.zIndex = "999";
                 enemyHp.innerText = supermarioHP;
+
             }
             if (enemyHp.innerText <= 0 && yourHp.innerText > 0) {
                 clearInterval(enemyDamage);
@@ -455,19 +522,6 @@ multiverse.onclick = () => {
                     gameResult.innerText = `${nameValue} won`;
                 }
                 winsCounter.innerText++;
-                if (hellBossCompleted == false) {
-                    if (roundValueCounter > 20 && (winsCounter.innerText > lossesCounter.innerText)) {
-                        console.log("hell is here");
-                        hell.style.display = "block";
-                    }
-                }
-                if (heavenBossCompleted == false) {
-                    if (roundValueCounter > 40 && (winsCounter.innerText > lossesCounter.innerText) && hell.style.display == "none") {
-                        console.log("heaven is here");
-                        hell.style.display = "none";
-                        heaven.style.display = "block";
-                    }
-                }
 
                 audioYouWin.src = "./res/audio/youWin.mp3";
                 audioYouWin.play();
@@ -483,14 +537,35 @@ multiverse.onclick = () => {
     //------------------------------------ enemy groot
     if (randomEnemy == 2) {
         game.style.boxShadow = "0 0 120px brown inset";
-        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/grootBG.png)";
-        enemy.src = "./res/img/enemies/enemy.groot.png";
+
+        if (highDetail) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/grootBG.gif)";
+            enemy.src = "./res/img/enemies/enemy.groot.gif";
+        } else if (highDetail == false) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/grootBG.png)";
+            enemy.src = "./res/img/enemies/enemy.groot.png";
+        }
         enemyHpTextValue.innerText = `GROOT´S HP:`;
         enemyHp.innerText = grootHP;
         const enemyDamage = setInterval(() => {
             yourHp.innerText -= 33;
             audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
             audioButtonClick.play();
+            //------------------------------------ hero heart beat effect
+            if (yourHp.innerText <= 10) {
+                const startPulse = Math.floor(Math.random() * 20);
+                setInterval(() => {
+                    startPulse;
+                }, 500);
+                const endPulse = Math.floor(Math.random() * 25);
+                setInterval(() => {
+                    endPulse;
+                }, 500);
+                console.log(`${startPulse} and ${endPulse}`);
+                heroIdle.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+                heroAttack.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+
+            }
             if (yourHp.innerText <= 0) {
                 clearInterval(enemyDamage);
 
@@ -527,19 +602,6 @@ multiverse.onclick = () => {
                     gameResult.innerText = `${nameValue} won`;
                 }
                 winsCounter.innerText++;
-                if (hellBossCompleted == false) {
-                    if (roundValueCounter > 20 && (winsCounter.innerText > lossesCounter.innerText)) {
-                        console.log("hell is here");
-                        hell.style.display = "block";
-                    }
-                }
-                if (heavenBossCompleted == false) {
-                    if (roundValueCounter > 40 && (winsCounter.innerText > lossesCounter.innerText) && hell.style.display == "none") {
-                        console.log("heaven is here");
-                        hell.style.display = "none";
-                        heaven.style.display = "block";
-                    }
-                }
 
                 audioYouWin.src = "./res/audio/youWin.mp3";
                 audioYouWin.play();
@@ -555,14 +617,36 @@ multiverse.onclick = () => {
     //------------------------------------ enemy robocop
     if (randomEnemy == 3) {
         game.style.boxShadow = "0 0 120px gray inset";
-        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/robocopBG.png)";
-        enemy.src = "./res/img/enemies/enemy.robocop.png";
+
+        if (highDetail) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/robocopBG.gif)";
+            enemy.src = "./res/img/enemies/enemy.robocop.gif";
+        } else if (highDetail == false) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/robocopBG.png)";
+            enemy.src = "./res/img/enemies/enemy.robocop.png";
+        }
         enemyHpTextValue.innerText = `ROBOCOP´S HP:`;
+
         enemyHp.innerText = robocopHP;
         const enemyDamage = setInterval(() => {
             yourHp.innerText -= 34;
             audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
             audioButtonClick.play();
+            //------------------------------------ hero heart beat effect
+            if (yourHp.innerText <= 10) {
+                const startPulse = Math.floor(Math.random() * 20);
+                setInterval(() => {
+                    startPulse;
+                }, 500);
+                const endPulse = Math.floor(Math.random() * 25);
+                setInterval(() => {
+                    endPulse;
+                }, 500);
+                console.log(`${startPulse} and ${endPulse}`);
+                heroIdle.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+                heroAttack.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+
+            }
             if (yourHp.innerText <= 0) {
                 clearInterval(enemyDamage);
 
@@ -599,19 +683,7 @@ multiverse.onclick = () => {
                     gameResult.innerText = `${nameValue} won`;
                 }
                 winsCounter.innerText++;
-                if (hellBossCompleted == false) {
-                    if (roundValueCounter > 20 && (winsCounter.innerText > lossesCounter.innerText)) {
-                        console.log("hell is here");
-                        hell.style.display = "block";
-                    }
-                }
-                if (heavenBossCompleted == false) {
-                    if (roundValueCounter > 40 && (winsCounter.innerText > lossesCounter.innerText) && hell.style.display == "none") {
-                        console.log("heaven is here");
-                        hell.style.display = "none";
-                        heaven.style.display = "block";
-                    }
-                }
+
 
                 audioYouWin.src = "./res/audio/youWin.mp3";
                 audioYouWin.play();
@@ -627,14 +699,35 @@ multiverse.onclick = () => {
     //------------------------------------ enemy predator
     if (randomEnemy == 4) {
         game.style.boxShadow = "0 0 120px green inset";
-        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/predatorBG.png)";
-        enemy.src = "./res/img/enemies/enemy.predator.png";
+
+        if (highDetail) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/predatorBG.gif)";
+            enemy.src = "./res/img/enemies/enemy.predator.gif";
+        } else if (highDetail == false) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/predatorBG.png)";
+            enemy.src = "./res/img/enemies/enemy.predator.png";
+        }
         enemyHpTextValue.innerText = `PREDATOR´S HP:`;
         enemyHp.innerText = predatorHP;
         const enemyDamage = setInterval(() => {
             yourHp.innerText -= 35;
             audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
             audioButtonClick.play();
+            //------------------------------------ hero heart beat effect
+            if (yourHp.innerText <= 10) {
+                const startPulse = Math.floor(Math.random() * 20);
+                setInterval(() => {
+                    startPulse;
+                }, 500);
+                const endPulse = Math.floor(Math.random() * 25);
+                setInterval(() => {
+                    endPulse;
+                }, 500);
+                console.log(`${startPulse} and ${endPulse}`);
+                heroIdle.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+                heroAttack.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+
+            }
             if (yourHp.innerText <= 0) {
                 clearInterval(enemyDamage);
 
@@ -671,19 +764,7 @@ multiverse.onclick = () => {
                     gameResult.innerText = `${nameValue} won`;
                 }
                 winsCounter.innerText++;
-                if (hellBossCompleted == false) {
-                    if (roundValueCounter > 20 && (winsCounter.innerText > lossesCounter.innerText)) {
-                        console.log("hell is here");
-                        hell.style.display = "block";
-                    }
-                }
-                if (heavenBossCompleted == false) {
-                    if (roundValueCounter > 40 && (winsCounter.innerText > lossesCounter.innerText) && hell.style.display == "none") {
-                        console.log("heaven is here");
-                        hell.style.display = "none";
-                        heaven.style.display = "block";
-                    }
-                }
+
 
                 audioYouWin.src = "./res/audio/youWin.mp3";
                 audioYouWin.play();
@@ -699,14 +780,35 @@ multiverse.onclick = () => {
     //------------------------------------ enemy terminator
     if (randomEnemy == 5) {
         game.style.boxShadow = "0 0 120px black inset";
-        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/terminatorBG.png)";
-        enemy.src = "./res/img/enemies/enemy.terminator.png";
+
+        if (highDetail) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/terminatorBG.gif)";
+            enemy.src = "./res/img/enemies/enemy.terminator.gif";
+        } else if (highDetail == false) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/terminatorBG.png)";
+            enemy.src = "./res/img/enemies/enemy.terminator.png";
+        }
         enemyHpTextValue.innerText = `TERMINATOR´S HP:`;
         enemyHp.innerText = terminatorHP;
         const enemyDamage = setInterval(() => {
             yourHp.innerText -= 36;
             audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
             audioButtonClick.play();
+            //------------------------------------ hero heart beat effect
+            if (yourHp.innerText <= 10) {
+                const startPulse = Math.floor(Math.random() * 20);
+                setInterval(() => {
+                    startPulse;
+                }, 500);
+                const endPulse = Math.floor(Math.random() * 25);
+                setInterval(() => {
+                    endPulse;
+                }, 500);
+                console.log(`${startPulse} and ${endPulse}`);
+                heroIdle.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+                heroAttack.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+
+            }
             if (yourHp.innerText <= 0) {
                 clearInterval(enemyDamage);
 
@@ -743,19 +845,7 @@ multiverse.onclick = () => {
                     gameResult.innerText = `${nameValue} won`;
                 }
                 winsCounter.innerText++;
-                if (hellBossCompleted == false) {
-                    if (roundValueCounter > 20 && (winsCounter.innerText > lossesCounter.innerText)) {
-                        console.log("hell is here");
-                        hell.style.display = "block";
-                    }
-                }
-                if (heavenBossCompleted == false) {
-                    if (roundValueCounter > 40 && (winsCounter.innerText > lossesCounter.innerText) && hell.style.display == "none") {
-                        console.log("heaven is here");
-                        hell.style.display = "none";
-                        heaven.style.display = "block";
-                    }
-                }
+
 
                 audioYouWin.src = "./res/audio/youWin.mp3";
                 audioYouWin.play();
@@ -771,14 +861,35 @@ multiverse.onclick = () => {
     //------------------------------------ enemy geralt
     if (randomEnemy == 6) {
         game.style.boxShadow = "0 0 120px rgb(100,50,10) inset";
-        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/geraltBG.png)";
-        enemy.src = "./res/img/enemies/enemy.geralt.png";
+
+        if (highDetail) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/geraltBG.gif)";
+            enemy.src = "./res/img/enemies/enemy.geralt.gif";
+        } else if (highDetail == false) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/geraltBG.png)";
+            enemy.src = "./res/img/enemies/enemy.geralt.png";
+        }
         enemyHpTextValue.innerText = `GERALT´S HP:`;
         enemyHp.innerText = geraltHP;
         const enemyDamage = setInterval(() => {
             yourHp.innerText -= 37;
             audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
             audioButtonClick.play();
+            //------------------------------------ hero heart beat effect
+            if (yourHp.innerText <= 10) {
+                const startPulse = Math.floor(Math.random() * 20);
+                setInterval(() => {
+                    startPulse;
+                }, 500);
+                const endPulse = Math.floor(Math.random() * 25);
+                setInterval(() => {
+                    endPulse;
+                }, 500);
+                console.log(`${startPulse} and ${endPulse}`);
+                heroIdle.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+                heroAttack.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+
+            }
             if (yourHp.innerText <= 0) {
                 clearInterval(enemyDamage);
 
@@ -815,19 +926,6 @@ multiverse.onclick = () => {
                     gameResult.innerText = `${nameValue} won`;
                 }
                 winsCounter.innerText++;
-                if (hellBossCompleted == false) {
-                    if (roundValueCounter > 20 && (winsCounter.innerText > lossesCounter.innerText)) {
-                        console.log("hell is here");
-                        hell.style.display = "block";
-                    }
-                }
-                if (heavenBossCompleted == false) {
-                    if (roundValueCounter > 40 && (winsCounter.innerText > lossesCounter.innerText) && hell.style.display == "none") {
-                        console.log("heaven is here");
-                        hell.style.display = "none";
-                        heaven.style.display = "block";
-                    }
-                }
 
                 audioYouWin.src = "./res/audio/youWin.mp3";
                 audioYouWin.play();
@@ -843,14 +941,35 @@ multiverse.onclick = () => {
     //------------------------------------ enemy doom slayer
     if (randomEnemy == 7) {
         game.style.boxShadow = "0 0 120px rgb(10,150,10) inset";
-        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/doomslayerBG.png)";
-        enemy.src = "./res/img/enemies/enemy.doomslayer.png";
+
+        if (highDetail) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/doomslayerBG.gif)";
+            enemy.src = "./res/img/enemies/enemy.doomslayer.gif";
+        } else if (highDetail == false) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/doomslayerBG.png)";
+            enemy.src = "./res/img/enemies/enemy.doomslayer.png";
+        }
         enemyHpTextValue.innerText = `DOOM SLAYER´S HP:`;
         enemyHp.innerText = doomslayerHP;
         const enemyDamage = setInterval(() => {
             yourHp.innerText -= 38;
             audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
             audioButtonClick.play();
+            //------------------------------------ hero heart beat effect
+            if (yourHp.innerText <= 10) {
+                const startPulse = Math.floor(Math.random() * 20);
+                setInterval(() => {
+                    startPulse;
+                }, 500);
+                const endPulse = Math.floor(Math.random() * 25);
+                setInterval(() => {
+                    endPulse;
+                }, 500);
+                console.log(`${startPulse} and ${endPulse}`);
+                heroIdle.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+                heroAttack.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+
+            }
             if (yourHp.innerText <= 0) {
                 clearInterval(enemyDamage);
 
@@ -887,19 +1006,7 @@ multiverse.onclick = () => {
                     gameResult.innerText = `${nameValue} won`;
                 }
                 winsCounter.innerText++;
-                if (hellBossCompleted == false) {
-                    if (roundValueCounter > 20 && (winsCounter.innerText > lossesCounter.innerText)) {
-                        console.log("hell is here");
-                        hell.style.display = "block";
-                    }
-                }
-                if (heavenBossCompleted == false) {
-                    if (roundValueCounter > 40 && (winsCounter.innerText > lossesCounter.innerText) && hell.style.display == "none") {
-                        console.log("heaven is here");
-                        hell.style.display = "none";
-                        heaven.style.display = "block";
-                    }
-                }
+
 
                 audioYouWin.src = "./res/audio/youWin.mp3";
                 audioYouWin.play();
@@ -915,14 +1022,35 @@ multiverse.onclick = () => {
     //------------------------------------ enemy solid snake
     if (randomEnemy == 8) {
         game.style.boxShadow = "0 0 120px rgb(20,20,120) inset";
-        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/solidsnakeBG.png)";
-        enemy.src = "./res/img/enemies/enemy.solidsnake.png";
+
+        if (highDetail) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/solidsnakeBG.gif)";
+            enemy.src = "./res/img/enemies/enemy.solidsnake.gif";
+        } else if (highDetail == false) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/solidsnakeBG.png)";
+            enemy.src = "./res/img/enemies/enemy.solidsnake.png";
+        }
         enemyHpTextValue.innerText = `SOLID SNAKE´S HP:`;
         enemyHp.innerText = solidsnakeHP;
         const enemyDamage = setInterval(() => {
             yourHp.innerText -= 39;
             audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
             audioButtonClick.play();
+            //------------------------------------ hero heart beat effect
+            if (yourHp.innerText <= 10) {
+                const startPulse = Math.floor(Math.random() * 20);
+                setInterval(() => {
+                    startPulse;
+                }, 500);
+                const endPulse = Math.floor(Math.random() * 25);
+                setInterval(() => {
+                    endPulse;
+                }, 500);
+                console.log(`${startPulse} and ${endPulse}`);
+                heroIdle.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+                heroAttack.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+
+            }
             if (yourHp.innerText <= 0) {
                 clearInterval(enemyDamage);
 
@@ -959,19 +1087,6 @@ multiverse.onclick = () => {
                     gameResult.innerText = `${nameValue} won`;
                 }
                 winsCounter.innerText++;
-                if (hellBossCompleted == false) {
-                    if (roundValueCounter > 20 && (winsCounter.innerText > lossesCounter.innerText)) {
-                        console.log("hell is here");
-                        hell.style.display = "block";
-                    }
-                }
-                if (heavenBossCompleted == false) {
-                    if (roundValueCounter > 40 && (winsCounter.innerText > lossesCounter.innerText) && hell.style.display == "none") {
-                        console.log("heaven is here");
-                        hell.style.display = "none";
-                        heaven.style.display = "block";
-                    }
-                }
 
                 audioYouWin.src = "./res/audio/youWin.mp3";
                 audioYouWin.play();
@@ -987,14 +1102,35 @@ multiverse.onclick = () => {
     //------------------------------------ enemy mandalorian
     if (randomEnemy == 9) {
         game.style.boxShadow = "0 0 120px silver inset";
-        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/mandalorianBG.png)";
-        enemy.src = "./res/img/enemies/enemy.mandalorian.png";
+
+        if (highDetail) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/mandalorianBG.gif)";
+            enemy.src = "./res/img/enemies/enemy.mandalorian.gif";
+        } else if (highDetail == false) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/mandalorianBG.png)";
+            enemy.src = "./res/img/enemies/enemy.mandalorian.png";
+        }
         enemyHpTextValue.innerText = `MANDALORIAN´S HP:`;
         enemyHp.innerText = mandalorianHP;
         const enemyDamage = setInterval(() => {
             yourHp.innerText -= 40;
             audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
             audioButtonClick.play();
+            //------------------------------------ hero heart beat effect
+            if (yourHp.innerText <= 10) {
+                const startPulse = Math.floor(Math.random() * 20);
+                setInterval(() => {
+                    startPulse;
+                }, 500);
+                const endPulse = Math.floor(Math.random() * 25);
+                setInterval(() => {
+                    endPulse;
+                }, 500);
+                console.log(`${startPulse} and ${endPulse}`);
+                heroIdle.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+                heroAttack.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+
+            }
             if (yourHp.innerText <= 0) {
                 clearInterval(enemyDamage);
 
@@ -1031,19 +1167,7 @@ multiverse.onclick = () => {
                     gameResult.innerText = `${nameValue} won`;
                 }
                 winsCounter.innerText++;
-                if (hellBossCompleted == false) {
-                    if (roundValueCounter > 20 && (winsCounter.innerText > lossesCounter.innerText)) {
-                        console.log("hell is here");
-                        hell.style.display = "block";
-                    }
-                }
-                if (heavenBossCompleted == false) {
-                    if (roundValueCounter > 40 && (winsCounter.innerText > lossesCounter.innerText) && hell.style.display == "none") {
-                        console.log("heaven is here");
-                        hell.style.display = "none";
-                        heaven.style.display = "block";
-                    }
-                }
+
 
                 audioYouWin.src = "./res/audio/youWin.mp3";
                 audioYouWin.play();
@@ -1059,14 +1183,35 @@ multiverse.onclick = () => {
     //------------------------------------ enemy darth vader
     if (randomEnemy == 10) {
         game.style.boxShadow = "0 0 120px rgb(100,0,0) inset";
-        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/darthvaderBG.png)";
-        enemy.src = "./res/img/enemies/enemy.darthvader.png";
+
+        if (highDetail) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/darthvaderBG.gif)";
+            enemy.src = "./res/img/enemies/enemy.darthvader.gif";
+        } else if (highDetail == false) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/darthvaderBG.png)";
+            enemy.src = "./res/img/enemies/enemy.darthvader.png";
+        }
         enemyHpTextValue.innerText = `DARTH VADER´S HP:`;
         enemyHp.innerText = darthvaderHP;
         const enemyDamage = setInterval(() => {
             yourHp.innerText -= 41;
             audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
             audioButtonClick.play();
+            //------------------------------------ hero heart beat effect
+            if (yourHp.innerText <= 10) {
+                const startPulse = Math.floor(Math.random() * 20);
+                setInterval(() => {
+                    startPulse;
+                }, 500);
+                const endPulse = Math.floor(Math.random() * 25);
+                setInterval(() => {
+                    endPulse;
+                }, 500);
+                console.log(`${startPulse} and ${endPulse}`);
+                heroIdle.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+                heroAttack.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+
+            }
             if (yourHp.innerText <= 0) {
                 clearInterval(enemyDamage);
 
@@ -1103,19 +1248,6 @@ multiverse.onclick = () => {
                     gameResult.innerText = `${nameValue} won`;
                 }
                 winsCounter.innerText++;
-                if (hellBossCompleted == false) {
-                    if (roundValueCounter > 20 && (winsCounter.innerText > lossesCounter.innerText)) {
-                        console.log("hell is here");
-                        hell.style.display = "block";
-                    }
-                }
-                if (heavenBossCompleted == false) {
-                    if (roundValueCounter > 40 && (winsCounter.innerText > lossesCounter.innerText) && hell.style.display == "none") {
-                        console.log("heaven is here");
-                        hell.style.display = "none";
-                        heaven.style.display = "block";
-                    }
-                }
 
                 audioYouWin.src = "./res/audio/youWin.mp3";
                 audioYouWin.play();
@@ -1131,14 +1263,35 @@ multiverse.onclick = () => {
     //------------------------------------ enemy naruto
     if (randomEnemy == 11) {
         game.style.boxShadow = "0 0 120px rgb(255,205,0) inset";
-        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/narutoBG.png)";
-        enemy.src = "./res/img/enemies/enemy.naruto.png";
+
+        if (highDetail) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/narutoBG.gif)";
+            enemy.src = "./res/img/enemies/enemy.naruto.gif";
+        } else if (highDetail == false) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/narutoBG.png)";
+            enemy.src = "./res/img/enemies/enemy.naruto.png";
+        }
         enemyHpTextValue.innerText = `NARUTO´S HP:`;
         enemyHp.innerText = narutoHP;
         const enemyDamage = setInterval(() => {
             yourHp.innerText -= 42;
             audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
             audioButtonClick.play();
+            //------------------------------------ hero heart beat effect
+            if (yourHp.innerText <= 10) {
+                const startPulse = Math.floor(Math.random() * 20);
+                setInterval(() => {
+                    startPulse;
+                }, 500);
+                const endPulse = Math.floor(Math.random() * 25);
+                setInterval(() => {
+                    endPulse;
+                }, 500);
+                console.log(`${startPulse} and ${endPulse}`);
+                heroIdle.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+                heroAttack.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+
+            }
             if (yourHp.innerText <= 0) {
                 clearInterval(enemyDamage);
 
@@ -1175,19 +1328,6 @@ multiverse.onclick = () => {
                     gameResult.innerText = `${nameValue} won`;
                 }
                 winsCounter.innerText++;
-                if (hellBossCompleted == false) {
-                    if (roundValueCounter > 20 && (winsCounter.innerText > lossesCounter.innerText)) {
-                        console.log("hell is here");
-                        hell.style.display = "block";
-                    }
-                }
-                if (heavenBossCompleted == false) {
-                    if (roundValueCounter > 40 && (winsCounter.innerText > lossesCounter.innerText) && hell.style.display == "none") {
-                        console.log("heaven is here");
-                        hell.style.display = "none";
-                        heaven.style.display = "block";
-                    }
-                }
 
                 audioYouWin.src = "./res/audio/youWin.mp3";
                 audioYouWin.play();
@@ -1203,14 +1343,35 @@ multiverse.onclick = () => {
     //------------------------------------ enemy goku
     if (randomEnemy == 12) {
         game.style.boxShadow = "0 0 120px lightblue inset";
-        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/gokuBG.png)";
-        enemy.src = "./res/img/enemies/enemy.goku.png";
+
+        if (highDetail) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/gokuBG.gif)";
+            enemy.src = "./res/img/enemies/enemy.goku.gif";
+        } else if (highDetail == false) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/gokuBG.png)";
+            enemy.src = "./res/img/enemies/enemy.goku.png";
+        }
         enemyHpTextValue.innerText = `GOKU´S HP:`;
         enemyHp.innerText = gokuHP;
         const enemyDamage = setInterval(() => {
             yourHp.innerText -= 43;
             audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
             audioButtonClick.play();
+            //------------------------------------ hero heart beat effect
+            if (yourHp.innerText <= 10) {
+                const startPulse = Math.floor(Math.random() * 20);
+                setInterval(() => {
+                    startPulse;
+                }, 500);
+                const endPulse = Math.floor(Math.random() * 25);
+                setInterval(() => {
+                    endPulse;
+                }, 500);
+                console.log(`${startPulse} and ${endPulse}`);
+                heroIdle.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+                heroAttack.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+
+            }
             if (yourHp.innerText <= 0) {
                 clearInterval(enemyDamage);
 
@@ -1247,19 +1408,7 @@ multiverse.onclick = () => {
                     gameResult.innerText = `${nameValue} won`;
                 }
                 winsCounter.innerText++;
-                if (hellBossCompleted == false) {
-                    if (roundValueCounter > 20 && (winsCounter.innerText > lossesCounter.innerText)) {
-                        console.log("hell is here");
-                        hell.style.display = "block";
-                    }
-                }
-                if (heavenBossCompleted == false) {
-                    if (roundValueCounter > 40 && (winsCounter.innerText > lossesCounter.innerText) && hell.style.display == "none") {
-                        console.log("heaven is here");
-                        hell.style.display = "none";
-                        heaven.style.display = "block";
-                    }
-                }
+
 
                 audioYouWin.src = "./res/audio/youWin.mp3";
                 audioYouWin.play();
@@ -1275,14 +1424,35 @@ multiverse.onclick = () => {
     //------------------------------------ enemy john wick
     if (randomEnemy == 13) {
         game.style.boxShadow = "0 0 120px goldenrod inset";
-        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/johnwickBG.png)";
-        enemy.src = "./res/img/enemies/enemy.johnwick.png";
+
+        if (highDetail) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/johnwickBG.gif)";
+            enemy.src = "./res/img/enemies/enemy.johnwick.gif";
+        } else if (highDetail == false) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/johnwickBG.png)";
+            enemy.src = "./res/img/enemies/enemy.johnwick.png";
+        }
         enemyHpTextValue.innerText = `JOHN WICK´S HP:`;
         enemyHp.innerText = johnwickHP;
         const enemyDamage = setInterval(() => {
             yourHp.innerText -= 44;
             audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
             audioButtonClick.play();
+            //------------------------------------ hero heart beat effect
+            if (yourHp.innerText <= 10) {
+                const startPulse = Math.floor(Math.random() * 20);
+                setInterval(() => {
+                    startPulse;
+                }, 500);
+                const endPulse = Math.floor(Math.random() * 25);
+                setInterval(() => {
+                    endPulse;
+                }, 500);
+                console.log(`${startPulse} and ${endPulse}`);
+                heroIdle.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+                heroAttack.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+
+            }
             if (yourHp.innerText <= 0) {
                 clearInterval(enemyDamage);
 
@@ -1319,19 +1489,7 @@ multiverse.onclick = () => {
                     gameResult.innerText = `${nameValue} won`;
                 }
                 winsCounter.innerText++;
-                if (hellBossCompleted == false) {
-                    if (roundValueCounter > 20 && (winsCounter.innerText > lossesCounter.innerText)) {
-                        console.log("hell is here");
-                        hell.style.display = "block";
-                    }
-                }
-                if (heavenBossCompleted == false) {
-                    if (roundValueCounter > 40 && (winsCounter.innerText > lossesCounter.innerText) && hell.style.display == "none") {
-                        console.log("heaven is here");
-                        hell.style.display = "none";
-                        heaven.style.display = "block";
-                    }
-                }
+
 
                 audioYouWin.src = "./res/audio/youWin.mp3";
                 audioYouWin.play();
@@ -1347,14 +1505,35 @@ multiverse.onclick = () => {
     //------------------------------------ enemy kratos
     if (randomEnemy == 14 || randomEnemy == 15) {
         game.style.boxShadow = "0 0 120px rgb(160,20,20) inset";
-        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/kratosBG.png)";
-        enemy.src = "./res/img/enemies/enemy.kratos.png";
+
+        if (highDetail) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/kratosBG.gif)";
+            enemy.src = "./res/img/enemies/enemy.kratos.gif";
+        } else if (highDetail == false) {
+            game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/kratosBG.png)";
+            enemy.src = "./res/img/enemies/enemy.kratos.png";
+        }
         enemyHpTextValue.innerText = `KRATOS´S HP:`;
         enemyHp.innerText = kratosHP;
         const enemyDamage = setInterval(() => {
             yourHp.innerText -= 45;
             audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
             audioButtonClick.play();
+            //------------------------------------ hero heart beat effect
+            if (yourHp.innerText <= 10) {
+                const startPulse = Math.floor(Math.random() * 20);
+                setInterval(() => {
+                    startPulse;
+                }, 500);
+                const endPulse = Math.floor(Math.random() * 25);
+                setInterval(() => {
+                    endPulse;
+                }, 500);
+                console.log(`${startPulse} and ${endPulse}`);
+                heroIdle.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+                heroAttack.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+
+            }
             if (yourHp.innerText <= 0) {
                 clearInterval(enemyDamage);
 
@@ -1391,19 +1570,6 @@ multiverse.onclick = () => {
                     gameResult.innerText = `${nameValue} won`;
                 }
                 winsCounter.innerText++;
-                if (hellBossCompleted == false) {
-                    if (roundValueCounter > 20 && (winsCounter.innerText > lossesCounter.innerText)) {
-                        console.log("hell is here");
-                        hell.style.display = "block";
-                    }
-                }
-                if (heavenBossCompleted == false) {
-                    if (roundValueCounter > 40 && (winsCounter.innerText > lossesCounter.innerText) && hell.style.display == "none") {
-                        console.log("heaven is here");
-                        hell.style.display = "none";
-                        heaven.style.display = "block";
-                    }
-                }
 
                 audioYouWin.src = "./res/audio/youWin.mp3";
                 audioYouWin.play();
@@ -1454,9 +1620,24 @@ multiverse.onclick = () => {
     backBtnShop.style.zIndex = "0";
 
     gameResult.onclick = () => {
+        if (hellBossCompleted == false && roundValueCounter > 20) {
+            console.log("hell is here");
+            hell.style.display = "block";
+        }
+        if (heavenBossCompleted == false) {
+            if (hellBossCompleted == true && roundValueCounter > 40) {
+                console.log("heaven is here");
+                hell.style.display = "none";
+                heaven.style.display = "block";
+            }
+        } else {
+            heaven.style.display = "none";
+        }
         console.log("multiverse gamee resultt");
         audioButtonClick.src = "./res/audio/buttonsound.mp3";
         audioButtonClick.play();
+        winAndLoss.style.display = "block";
+        highDetailBtn.style.display = "block";
         yourName.style.display = "block";
         shopBtn.style.display = "block";
         infoBtn.style.display = "block";
@@ -1504,32 +1685,41 @@ hell.onmouseover = () => {
     }
 }
 
-
-/**
-    if (roundValueCounter == 20 && (winsCounter.innerText > lossesCounter.innerText )) {
-        dcPlanet.style.display = "none";
-        nameOfPlanetDC.style.display = "none";
-        marvelPlanet.style.display = "none";
-        nameOfPlanet.style.display = "none";
-        hell.style.display = "block";
-    }
- */
-
-
-
-
 hell.onclick = () => {
     roundHellCounter++;
     yourName.style.display = "block";
+    winAndLoss.style.display = "none";
+    highDetailBtn.style.display = "none";
     game.style.boxShadow = "0 0 120px #850111 inset";
-    game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/hellBG.png)";
-    enemy.src = "./res/img/enemies/enemy.devil.png";
+
+    if (highDetail) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/hellBG.gif)";
+        enemy.src = "./res/img/enemies/enemy.devil.gif";
+    } else if (highDetail == false) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/hellBG.png)";
+        enemy.src = "./res/img/enemies/enemy.devil.png";
+    }
     enemyHpTextValue.innerText = `DEVIL´S HP:`;
     enemyHp.innerText = devilHP;
     const enemyDamage = setInterval(() => {
         yourHp.innerText -= 50;
         audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
         audioButtonClick.play();
+        //------------------------------------ hero heart beat effect
+        if (yourHp.innerText <= 10) {
+            const startPulse = Math.floor(Math.random() * 20);
+            setInterval(() => {
+                startPulse;
+            }, 500);
+            const endPulse = Math.floor(Math.random() * 25);
+            setInterval(() => {
+                endPulse;
+            }, 500);
+            console.log(`${startPulse} and ${endPulse}`);
+            heroIdle.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+            heroAttack.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+
+        }
         if (yourHp.innerText <= 0) {
             clearInterval(enemyDamage);
             hellBossCompleted = false;
@@ -1618,6 +1808,8 @@ hell.onclick = () => {
         console.log("hell gamee resultt");
         audioButtonClick.src = "./res/audio/buttonsound.mp3";
         audioButtonClick.play();
+        winAndLoss.style.display = "block";
+        highDetailBtn.style.display = "block";
         yourName.style.display = "block";
         shopBtn.style.display = "block";
         infoBtn.style.display = "block";
@@ -1668,14 +1860,36 @@ heaven.onclick = () => {
     roundHeavenCounter++;
     yourName.style.display = "block";
     game.style.boxShadow = "0 0 120px #87CEEB inset";
-    game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/heavenBG.png)";
-    enemy.src = "./res/img/enemies/enemy.angel.png";
+    winAndLoss.style.display = "none";
+    highDetailBtn.style.display = "none";
+    if (highDetail) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/heavenBG.gif)";
+        enemy.src = "./res/img/enemies/enemy.angel.gif";
+    } else if (highDetail == false) {
+        game.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/heavenBG.png)";
+        enemy.src = "./res/img/enemies/enemy.angel.png";
+    }
     enemyHpTextValue.innerText = `ANGEL´S HP:`;
     enemyHp.innerText = angelHP;
     const enemyDamage = setInterval(() => {
         yourHp.innerText -= 100;
         audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
         audioButtonClick.play();
+        //------------------------------------ hero heart beat effect
+        if (yourHp.innerText <= 10) {
+            const startPulse = Math.floor(Math.random() * 20);
+            setInterval(() => {
+                startPulse;
+            }, 500);
+            const endPulse = Math.floor(Math.random() * 25);
+            setInterval(() => {
+                endPulse;
+            }, 500);
+            console.log(`${startPulse} and ${endPulse}`);
+            heroIdle.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+            heroAttack.style.filter = `drop-shadow(3px 3px ${startPulse}px red)drop-shadow(-3px -3px ${endPulse}px red)`;
+
+        }
         if (yourHp.innerText <= 0) {
             clearInterval(enemyDamage);
             heavenBossCompleted = false;
@@ -1764,6 +1978,8 @@ heaven.onclick = () => {
         console.log("heaven gamee resultt");
         audioButtonClick.src = "./res/audio/buttonsound.mp3";
         audioButtonClick.play();
+        winAndLoss.style.display = "block";
+        highDetailBtn.style.display = "block";
         yourName.style.display = "block";
         shopBtn.style.display = "block";
         infoBtn.style.display = "block";
@@ -1788,10 +2004,10 @@ heaven.onclick = () => {
         }
 
         if (hellBossCompleted && heavenBossCompleted) {
-            dcPlanet.style.display = "none";
-            nameOfPlanetDC.style.display = "none";
             marvelPlanet.style.display = "none";
             nameOfPlanet.style.display = "none";
+            dcPlanet.style.display = "none";
+            nameOfPlanetDC.style.display = "none";
             heaven.style.display = "none";
             hell.style.display = "none";
             inGameStoryRecapBtn.style.display = "none";
@@ -1807,8 +2023,8 @@ heaven.onclick = () => {
 theEndOfTheGame.onclick = () => {
     dcPlanet.style.display = "block";
     nameOfPlanetDC.style.display = "block";
-    marvelPlanet.style.display = "none";//
-    nameOfPlanet.style.display = "none";//
+    marvelPlanet.style.display = "none";
+    nameOfPlanet.style.display = "none";
     heaven.style.display = "none";
     hell.style.display = "none";
     inGameStoryRecapBtn.style.display = "block";
@@ -1843,10 +2059,10 @@ theEndOfTheGame.onmouseout = () => {
     theEndOfTheGame.innerText = "CONGRATULATIONS, YOU HAVE COMPLETED THE GAME AND THE AUTHOR DAVID GIVES YOU A 👍";
 }
 //------------------------------------ img dragging disabled
-const elements = [marvelPlanet, deesdavPlanet, dcPlanet, enemy, tutorialEnemy, heroIdle, heroAttack, viewPhoto];
+const disabledImages = [marvelPlanet, deesdavPlanet, dcPlanet, enemy, tutorialEnemy, heroIdle, heroAttack, viewPhoto, lastLevelReward, heroIdleAppearance];
 
-for (let i = 0; i < elements.length; i++) {
-    elements[i].ondragstart = function () {
+for (let i = 0; i < disabledImages.length; i++) {
+    disabledImages[i].ondragstart = function () {
         return false;
     };
 
@@ -1854,19 +2070,20 @@ for (let i = 0; i < elements.length; i++) {
 const imagesDragDisable = document.querySelectorAll("#gridOfKilledEnemies img");
 
 imagesDragDisable.forEach(image => {
-    image.addEventListener("dragstart", (dis) => {
-        dis.preventDefault();
+    image.addEventListener("dragstart", (disabler) => {
+        disabler.preventDefault();
     });
 });
 
 //------------------------------------ btns onmouseover and onmouseout
-const btnsOnMouseOverAndOut = [shopBtn, backBtn, backBtnShop, infoBtn, backBtnDC, muteAudio, collectionBtn, yesLobby, noLobby, playDraezlyr1, inGameStoryRecapBtn, highDetailBtn];
+const btnsOnMouseOverAndOut = [shopBtn, backBtn, backBtnShop, infoBtn, backBtnDC, muteAudio, collectionBtn, yesLobby, noLobby, playDraezlyr1, inGameStoryRecapBtn, highDetailBtn, nextBtn, sendInputBtn];
 
 for (let i = 0; i < btnsOnMouseOverAndOut.length; i++) {
     btnsOnMouseOverAndOut[i].onmouseover = () => {
         btnsOnMouseOverAndOut[i].style.backgroundColor = "white";
         btnsOnMouseOverAndOut[i].style.color = "black";
         btnsOnMouseOverAndOut[i].style.boxShadow = "0 0 100px white";
+        btnsOnMouseOverAndOut[i].style.textShadow = "0 0 3.5px white";
     }
 }
 
@@ -1875,6 +2092,8 @@ for (let i = 0; i < btnsOnMouseOverAndOut.length; i++) {
         btnsOnMouseOverAndOut[i].style.backgroundColor = "transparent";
         btnsOnMouseOverAndOut[i].style.color = "white";
         btnsOnMouseOverAndOut[i].style.boxShadow = "0 0 0px white";
+        btnsOnMouseOverAndOut[i].style.textShadow = "0 0 0px white";
+
     }
 
 }
@@ -1884,8 +2103,8 @@ const dynamicTitleElements = [play, story, author, playDraezlyr1, marvelPlanet, 
     backBtnDC, backBtnShop, shopBtn, infoBtn, nextBtn, sendInputBtn, multiverse, skipIntroBtn, muteAudio,
     collectionBtn, hell, heaven, backToLobby, inGameStoryRecapBtn, theEndOfTheGame, tutorial, highDetailBtn];
 const dynamicValues = ["PLAY", "STORY RECAP", "AUTHOR", "PLAY DRAEZLYR SWORD MASSACRE", "MARVEL PLANET", "DC PLANET", "DEESDAV PLANET",
-    "BACK", "BACK", "BACK", "SHOP", "INFO", "NEXT", "SEND", "MULTIVERSE PLAY", "SKIP INTRO", "MUTE/UNMUTE AUDIO",
-    "COLLECTION", "HELL", "HEAVEN", "BACK TO LOBBY", "IN GAME STORY RECAP", "THE END", "TUTORIAL", "HIGH/LOW DETAIL"];
+    "BACK", "BACK", "BACK", "SHOP", "INFO", "NEXT", "SEND", "MULTIVERSE PLANET", "SKIP INTRO", "MUTE/UNMUTE AUDIO",
+    "COLLECTION OF ENEMIES", "HELL PLANET", "HEAVEN PLANET", "BACK TO LOBBY", "IN GAME STORY RECAP", "THE END", "TUTORIAL", "HIGH/LOW DETAIL"];
 const dynamicTitleDefault = "DRAEZLYR WIELDER";
 
 for (let i = 0; i < dynamicTitleElements.length; i++) {
@@ -1898,10 +2117,9 @@ for (let i = 0; i < dynamicTitleElements.length; i++) {
     });
 }
 
-//------------------------------------ date
+//------------------------------------ date functionality
 const realtime = new Date();
 const hours = realtime.getHours();
-console.log(hours);
 
 if (hours >= 0 && hours < 12) {
     realtimepresented.innerText = `Good morning`;
@@ -1923,7 +2141,9 @@ function showInfoBox() {
     inGameStoryRecapBtn.style.display = "none";
     marvelPlanetClick = false;
     dcPlanetClick = false;
-
+    muteAudio.style.display = "none";
+    highDetailBtn.style.display = "none";
+    yourName.style.display = "none";
 }
 infoBtn.onclick = () => {
     showInfoBox();
@@ -1934,19 +2154,10 @@ infoBox.onclick = () => {
     infoBox.style.display = "none";
     collectionBtn.style.display = "block";
     inGameStoryRecapBtn.style.display = "block";
+    muteAudio.style.display = "block";
+    highDetailBtn.style.display = "block";
+    yourName.style.display = "block";
 }
-
-infoBox.onmouseover = () => {
-    yourName.style.zIndex = "0";
-    muteAudio.style.zIndex = "0";
-    highDetailBtn.style.zIndex = "0";
-}
-infoBox.onmouseout = () => {
-    yourName.style.zIndex = "999";
-    muteAudio.style.zIndex = "999";
-    highDetailBtn.style.zIndex = "999";
-}
-
 headline.onmouseover = () => {
     audioLobbyBackground.src = "./res/audio/lobbymusic.mp3";
     audioLobbyBackground.play();
@@ -1954,6 +2165,7 @@ headline.onmouseover = () => {
     headline.style.transform = "scale(1.9)";
     headline.style.paddingTop = "50px";
     realtimepresented.style.display = "none";
+    infoDetectionOfYourPC.style.display = "none";
     skipIntroBtn.style.display = "none";
     muteAudio.style.display = "none";
     highDetailBtn.style.display = "none";
@@ -1961,21 +2173,22 @@ headline.onmouseover = () => {
     story.style.color = "transparent";
     author.style.color = "transparent";
     tutorial.style.color = "transparent";
-    if (highDetail == true) {
+    if (highDetail) {
         document.body.style.backgroundImage = "url(./res/img/draezlyr.lobbyBackground.gif)";
     } else if (highDetail == false) {
-        document.body.style.backgroundImage = "url(./res/img/lobbyBackground.png)";
+        document.body.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.5), rgba(30, 150, 255, 0.3)), url(./res/img/lobbyBackground.png)";
     }
 
 }
 
 headline.onmouseout = () => {
-    audioLobbyBackground.src = "";
-    audioLobbyBackground.play();
+    audioLobbyBackground.src = "./res/audio/lobbymusic.mp3";
+    audioLobbyBackground.pause();
     headline.style.color = "black";
     headline.style.transform = "none";
     headline.style.paddingTop = "0px";
     realtimepresented.style.display = "block";
+    infoDetectionOfYourPC.style.display = "block";
     skipIntroBtn.style.display = "block";
     muteAudio.style.display = "block";
     highDetailBtn.style.display = "block";
@@ -2001,24 +2214,31 @@ for (let i = 0; i < lobbyElements.length; i++) {
 const storyRecapP = document.querySelectorAll("#storyRecap p");
 const inGameStoryRecapP = document.querySelectorAll("#inGameStoryRecap p");
 function showStoryRecap() {
+    infoDetectionOfYourPC.style.display = "none";
     audioButtonClick.src = "./res/audio/buttonsound.mp3";
     audioButtonClick.play();
     storyRecap.style.display = "block";
     lobby.style.display = "none";
+    highDetailBtn.style.display = "none";
+    muteAudio.style.display = "none";
     storyRecapP.forEach(p => {
         p.innerText = "You were a knight named John Guiscard Coral Ironside who went to the Temple of Doom and Oblivion where he was sent on a mission to find a fabled sword that was in an ancient prophecy to be the most powerful weapon ever and it bore the name Draezlyr. John found a sword stuck in a stone and pulled it out and he was cursed with the desire to kill monsters. The soul of the dragon Hraezlyr is hidden in the sword. The sword could also regenerate you, so John has gained immortality, great strength, and was controlled by anger.";
     });
 }
 
 function showInGameStoryRecap() {
+    infoDetectionOfYourPC.style.display = "none";
     audioButtonClick.src = "./res/audio/buttonsound.mp3";
     audioButtonClick.play();
     inGameStoryRecap.style.display = "block";
     planets.style.display = "none";
+    yourAppearanceBox.style.display = "none";
     collectionBtn.style.display = "none";
     infoBtn.style.display = "none";
     shopBtn.style.display = "none";
     inGameStoryRecapBtn.style.display = "none";
+    highDetailBtn.style.display = "none";
+    muteAudio.style.display = "none";
     inGameStoryRecapP.forEach(p => {
         p.innerText = "You were a knight named John Guiscard Coral Ironside who went to the Temple of Doom and Oblivion where he was sent on a mission to find a fabled sword that was in an ancient prophecy to be the most powerful weapon ever and it bore the name Draezlyr. John found a sword stuck in a stone and pulled it out and he was cursed with the desire to kill monsters. The soul of the dragon Hraezlyr is hidden in the sword. The sword could also regenerate you, so John has gained immortality, great strength, and was controlled by anger.";
     });
@@ -2032,21 +2252,26 @@ inGameStoryRecapBtn.onclick = () => {
     showInGameStoryRecap();
 }
 storyRecap.onclick = () => {
+    infoDetectionOfYourPC.style.display = "block";
     audioButtonClick.src = "./res/audio/buttonsound.mp3";
     audioButtonClick.play();
     storyRecap.style.display = "none";
     lobby.style.display = "flex";
-
+    highDetailBtn.style.display = "block";
+    muteAudio.style.display = "block";
 }
 inGameStoryRecap.onclick = () => {
     audioButtonClick.src = "./res/audio/buttonsound.mp3";
     audioButtonClick.play();
     inGameStoryRecap.style.display = "none";
     planets.style.display = "flex";
+    yourAppearanceBox.style.display = "block";
     collectionBtn.style.display = "block";
     infoBtn.style.display = "block";
     shopBtn.style.display = "block";
     inGameStoryRecapBtn.style.display = "block";
+    highDetailBtn.style.display = "block";
+    muteAudio.style.display = "block";
     if (deesdavPlanet.style.display == "block") {
         shopBtn.style.display = "none";
     } else {
@@ -2067,6 +2292,7 @@ tutorial.onclick = () => {
     tutorialShow();
 }
 function tutorialShow() {
+    infoDetectionOfYourPC.style.display = "none";
     headline.style.display = "none";
     skipIntroBtn.style.display = "none";
     realtimepresented.style.display = "none";
@@ -2095,6 +2321,7 @@ function tutorialShow() {
     yourHp.innerText = "number";
     enemyHp.innerText = "number";
     tutorialEnemy.onclick = () => {
+        infoDetectionOfYourPC.style.display = "block";
         audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
         audioButtonClick.play();
         game.style.display = "none";
@@ -2128,6 +2355,7 @@ function playGame() {
     document.body.style.backgroundImage = "url(./res/img/multiverse.png)";
     document.body.style.bakcgroundColor = "rgba(0, 0, 0, 0.727)";
     document.body.style.cursor = "none";
+    infoDetectionOfYourPC.style.display = "none";
     play.style.display = "none";
     story.style.display = "none";
     author.style.display = "none";
@@ -2144,10 +2372,10 @@ function playGame() {
         planets.style.display = "none";
         document.body.style.cursor = "default";
         loader.style.display = "none";
+        audioButtonClickMulti.src = "./res/audio/loadingtheme.mp3";
         audioButtonClickMulti.pause();
         document.body.style.bakcgroundColor = "black";
         document.body.style.backgroundImage = "none";
-        audioButtonClickMulti.currentTime = 0;
         storyinfo.style.display = "flex";
     }, playClickTime);
     if (storyinfo.style.display == "flex") {
@@ -2196,6 +2424,10 @@ nextBtn.onclick = () => {
 function sendEnter() {
     audioButtonClick.src = "./res/audio/buttonsound.mp3";
     audioButtonClick.play();
+    audioGameBackground.src = "./res/audio/bombBG.mp3";
+    audioGameBackground.play();
+    audioGameBackground.loop = true;
+    audioGameBackground.volume = 0.2;
     const nameValue = storyPartInput.value;
     const defaultName = "Draezlyr Wielder";
     if (nameValue == "") {
@@ -2204,6 +2436,7 @@ function sendEnter() {
         yourName.innerText = `Your name: ${nameValue}`;
     }
     yourName.style.display = "block";
+    yourAppearanceBox.style.display = "block";
     yourXPText.style.display = "block";
     yourHPText.style.display = "block";
     yourShieldText.style.display = "block";
@@ -2237,10 +2470,8 @@ function sendEnter() {
 sendInputBtn.onclick = () => {
     sendEnter();
 }
-
 //------------------------------------ secret color and god mode, Enter function, Critical hit and Shield function
 document.addEventListener("keyup", (e) => {
-    console.log(e);
     switch (e.key) {
         case ("ArrowLeft"):
             if (marvelPlanetClick == true && game.style.display == "none" && gameResult.style.display == "none" && gridOfLevels.style.display == "grid") {
@@ -2261,13 +2492,16 @@ document.addEventListener("keyup", (e) => {
                 audioButtonClick.src = "./res/audio/keyboard.sound.mp3";
                 audioButtonClick.play();
             }
-            if (highDetail == true) {
+            if (highDetail) {
                 heroIdle.src = "./res/img/secret.hero.idle.gif";
+                heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                 heroAttack.src = "./res/img/secret.hero.attack.gif";
             } else if (highDetail == false) {
                 heroIdle.src = "./res/img/secret.hero.idle.png";
+                heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                 heroAttack.src = "./res/img/secret.hero.attack.png";
             }
+
 
             yourHp.innerText += 0;
             // normal mode
@@ -2277,15 +2511,18 @@ document.addEventListener("keyup", (e) => {
             break;
         case ("d"): //black and white default hero color
         case ("D"):
+
             if (game.style.display == "flex") {
                 audioButtonClick.src = "./res/audio/keyboard.sound.mp3";
                 audioButtonClick.play();
             }
-            if (highDetail == true) {
+            if (highDetail) {
                 heroIdle.src = "./res/img/default.hero.idle.gif";
+                heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                 heroAttack.src = "./res/img/default.hero.attack.gif";
             } else if (highDetail == false) {
                 heroIdle.src = "./res/img/default.hero.idle.png";
+                heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                 heroAttack.src = "./res/img/default.hero.attack.png";
             }
             break;
@@ -2356,15 +2593,22 @@ document.addEventListener("keyup", (e) => {
             enemyKeyUp();
             break;
 
-        case ("b"): //bronze hero color = reward from marvel planet
-        case ("B"):
+        case ("t"): //tan hero color = reward from marvel planet
+        case ("T"):
             if (levelFIFTEENCompleted) {
                 if (game.style.display == "flex") {
                     audioButtonClick.src = "./res/audio/keyboard.sound.mp3";
                     audioButtonClick.play();
                 }
-                heroIdle.src = "./res/img/bronze.hero.idle.gif";
-                heroAttack.src = "./res/img/bronze.hero.attack.gif";
+                if (highDetail) {
+                    heroIdle.src = "./res/img/tan.hero.idle.gif";
+                    heroIdleAppearance.src = "./res/img/tan.hero.idle.gif";
+                    heroAttack.src = "./res/img/tan.hero.attack.gif";
+                } else if (highDetail == false) {
+                    heroIdle.src = "./res/img/tan.hero.idle.png";
+                    heroIdleAppearance.src = "./res/img/tan.hero.idle.png";
+                    heroAttack.src = "./res/img/tan.hero.attack.png";
+                }
             }
             break;
         case ("s"): //silver hero color = reward from deesdav dimension
@@ -2374,8 +2618,15 @@ document.addEventListener("keyup", (e) => {
                     audioButtonClick.src = "./res/audio/keyboard.sound.mp3";
                     audioButtonClick.play();
                 }
-                heroIdle.src = "./res/img/silver.hero.idle.gif";
-                heroAttack.src = "./res/img/silver.hero.attack.gif";
+                if (highDetail) {
+                    heroIdle.src = "./res/img/silver.hero.idle.gif";
+                    heroIdleAppearance.src = "./res/img/silver.hero.idle.gif";
+                    heroAttack.src = "./res/img/silver.hero.attack.gif";
+                } else if (highDetail == false) {
+                    heroIdle.src = "./res/img/silver.hero.idle.png";
+                    heroIdleAppearance.src = "./res/img/silver.hero.idle.png";
+                    heroAttack.src = "./res/img/silver.hero.attack.png";
+                }
             }
             break;
         case ("g"): //gold hero color = reward from dc planet
@@ -2385,13 +2636,16 @@ document.addEventListener("keyup", (e) => {
                     audioButtonClick.src = "./res/audio/keyboard.sound.mp3";
                     audioButtonClick.play();
                 }
-                heroIdle.src = "./res/img/gold.hero.idle.gif";
-                heroAttack.src = "./res/img/gold.hero.attack.gif";
+                if (highDetail) {
+                    heroIdle.src = "./res/img/gold.hero.idle.gif";
+                    heroIdleAppearance.src = "./res/img/gold.hero.idle.gif";
+                    heroAttack.src = "./res/img/gold.hero.attack.gif";
+                } else if (highDetail == false) {
+                    heroIdle.src = "./res/img/gold.hero.idle.png";
+                    heroIdleAppearance.src = "./res/img/gold.hero.idle.png";
+                    heroAttack.src = "./res/img/gold.hero.attack.png";
+                }
             }
-            break;
-
-        default:
-            console.log("you typed something wrong");
             break;
     }
 });
@@ -2410,14 +2664,19 @@ marvelPlanet.onmouseout = () => {
 
 marvelPlanet.onclick = () => {
     lastLevelRewardHeadline.innerText = "reward for completing level 15";
-    lastLevelRewardSwitch.innerText = "b or B";
+    lastLevelRewardSwitch.innerText = "t or T";
     planets.style.backgroundImage = "linear-gradient(rgba(0, 0, 0,  0.436), rgba(0, 0, 0, 0.436)), url(./res/img/marvelLevelsBG.png)";
     planets.style.height = "100%";
     yourName.style.zIndex = "999";
     muteAudio.style.zIndex = "999";
     highDetailBtn.style.zIndex = "999";
     rewardOverview.style.display = "block";
-    rewardOverview.src = "./res/img/bronze.hero.idle.gif";
+    rewardOverview.alt = "marvel-planet-reward";
+    if (highDetail) {
+        rewardOverview.src = "./res/img/tan.hero.idle.gif";
+    } else if (highDetail == false) {
+        rewardOverview.src = "./res/img/tan.hero.idle.png";
+    }
     collectionBtn.style.display = "none";
     inGameStoryRecapBtn.style.display = "none";
     yourName.style.display = "block";
@@ -2468,7 +2727,12 @@ if (multiverseAppeared == false) {
         muteAudio.style.zIndex = "999";
         highDetailBtn.style.zIndex = "999";
         rewardOverview.style.display = "block";
-        rewardOverview.src = "./res/img/gold.hero.idle.gif";
+        rewardOverview.alt = "dc-planet-reward";
+        if (highDetail) {
+            rewardOverview.src = "./res/img/gold.hero.idle.gif";
+        } else if (highDetail == false) {
+            rewardOverview.src = "./res/img/gold.hero.idle.png";
+        }
         collectionBtn.style.display = "none";
         inGameStoryRecapBtn.style.display = "none";
         yourName.style.display = "block";
@@ -2484,6 +2748,8 @@ if (multiverseAppeared == false) {
         dcLevelONE.style.display = "block";
         marvelPlanet.style.display = "none";
         nameOfPlanet.style.display = "none";
+        hell.style.display = "none";
+        heaven.style.display = "none";
         dcPlanet.style.display = "none";
         nameOfPlanetDC.style.display = "none";
         deesdavPlanet.style.display = "none";
@@ -2619,8 +2885,15 @@ let yourXPIncrease = 2;
 let dotXP = 5;
 let upgradeDamageValue = 4;
 let upgradeHealthValue = 2;
-let upgradeShieldValue = 7;//7
-let upgradeCriticalValue = 6;//6
+let upgradeShieldValue = 7;
+let upgradeCriticalValue = 6;
+
+if (highDetail) {
+    shop.backgroundImage = "url()";
+} else if (highDetail == false) {
+
+}
+
 
 shopBtn.onclick = () => {
     collectionBtn.style.display = "block";
@@ -2776,7 +3049,7 @@ critical.onmouseup = () => {
 
 //------------------------------------ customization upgrades
 let redColorOwned = false;
-let greenColorOwned = false;
+let emeraldColorOwned = false;
 let blueColorOwned = false;
 let yellowColorOwned = false;
 let redColorValue = 5;
@@ -2789,8 +3062,15 @@ redColor.onclick = () => {
         redColor.disable = false;
         audioButtonClick.src = "./res/audio/buttonsound.mp3";
         audioButtonClick.play();
-        heroIdle.src = "./res/img/red.hero.idle.gif";
-        heroAttack.src = "./res/img/red.hero.attack.gif";
+        if (highDetail) {
+            heroIdle.src = "./res/img/red.hero.idle.gif";
+            heroIdleAppearance.src = "./res/img/red.hero.idle.gif";
+            heroAttack.src = "./res/img/red.hero.attack.gif";
+        } else if (highDetail == false) {
+            heroIdle.src = "./res/img/red.hero.idle.png";
+            heroIdleAppearance.src = "./res/img/red.hero.idle.png";
+            heroAttack.src = "./res/img/red.hero.attack.png";
+        }
         yourXPValue -= redColorValue;
         yourXP.innerText = yourXPValue;
         redColorOwned = true;
@@ -2800,340 +3080,505 @@ redColor.onclick = () => {
     }
     if (redColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
-                case ("r"): //redhero color
+                case ("r"): //red hero color
                 case ("R"):
-                    heroIdle.src = "./res/img/red.hero.idle.gif";
-                    heroAttack.src = "./res/img/red.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/red.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.gif";
+                        heroAttack.src = "./res/img/red.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/red.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.png";
+                        heroAttack.src = "./res/img/red.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
     }
-    if (redColorOwned == true && greenColorOwned == true && blueColorOwned == true && yellowColorOwned == true) {
+    if (redColorOwned == true && emeraldColorOwned == true && blueColorOwned == true && yellowColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
-                case ("r"): //redhero color
+                case ("r"): //red hero color
                 case ("R"):
-                    heroIdle.src = "./res/img/red.hero.idle.gif";
-                    heroAttack.src = "./res/img/red.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/red.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.gif";
+                        heroAttack.src = "./res/img/red.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/red.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.png";
+                        heroAttack.src = "./res/img/red.hero.attack.png";
+                    }
                     break;
-                case ("g"): //green hero color
-                case ("G"):
-                    heroIdle.src = "./res/img/green.hero.idle.gif";
-                    heroAttack.src = "./res/img/green.hero.attack.gif";
+                case ("e"): //emerald hero color
+                case ("E"):
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/green.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.gif";
+                        heroAttack.src = "./res/img/green.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/green.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.png";
+                        heroAttack.src = "./res/img/green.hero.attack.png";
+                    }
                     break;
                 case ("b"): //blue hero color
                 case ("B"):
-                    heroIdle.src = "./res/img/blue.hero.idle.gif";
-                    heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/blue.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.gif";
+                        heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/blue.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.png";
+                        heroAttack.src = "./res/img/blue.hero.attack.png";
+                    }
                     break;
                 case ("y"): //yellow hero color
                 case ("Y"):
-                    heroIdle.src = "./res/img/yellow.hero.idle.gif";
-                    heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.gif";
+                        heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.png";
+                        heroAttack.src = "./res/img/yellow.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
-    } else if (redColorOwned == true && greenColorOwned == true && blueColorOwned == false && yellowColorOwned == false) {
+    } else if (redColorOwned == true && emeraldColorOwned == true && blueColorOwned == false && yellowColorOwned == false) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
-                case ("r"): //redhero color
+                case ("r"): //red hero color
                 case ("R"):
-                    heroIdle.src = "./res/img/red.hero.idle.gif";
-                    heroAttack.src = "./res/img/red.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/red.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.gif";
+                        heroAttack.src = "./res/img/red.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/red.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.png";
+                        heroAttack.src = "./res/img/red.hero.attack.png";
+                    }
                     break;
-                case ("g"): //green hero color
-                case ("G"):
-                    heroIdle.src = "./res/img/green.hero.idle.gif";
-                    heroAttack.src = "./res/img/green.hero.attack.gif";
+                case ("e"): //emerald hero color
+                case ("E"):
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/green.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.gif";
+                        heroAttack.src = "./res/img/green.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/green.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.png";
+                        heroAttack.src = "./res/img/green.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
-    } else if (redColorOwned == true && greenColorOwned == true && blueColorOwned == true && yellowColorOwned == false) {
+    } else if (redColorOwned == true && emeraldColorOwned == true && blueColorOwned == true && yellowColorOwned == false) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
-                case ("r"): //redhero color
+                case ("r"): //red hero color
                 case ("R"):
-                    heroIdle.src = "./res/img/red.hero.idle.gif";
-                    heroAttack.src = "./res/img/red.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/red.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.gif";
+                        heroAttack.src = "./res/img/red.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/red.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.png";
+                        heroAttack.src = "./res/img/red.hero.attack.png";
+                    }
                     break;
-                case ("g"): //green hero color
-                case ("G"):
-                    heroIdle.src = "./res/img/green.hero.idle.gif";
-                    heroAttack.src = "./res/img/green.hero.attack.gif";
+                case ("e"): //emerald hero color
+                case ("E"):
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/green.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.gif";
+                        heroAttack.src = "./res/img/green.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/green.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.png";
+                        heroAttack.src = "./res/img/green.hero.attack.png";
+                    }
                     break;
                 case ("b"): //blue hero color
                 case ("B"):
-                    heroIdle.src = "./res/img/blue.hero.idle.gif";
-                    heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/blue.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.gif";
+                        heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/blue.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.png";
+                        heroAttack.src = "./res/img/blue.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
-    } else if (redColorOwned == true && greenColorOwned == false && blueColorOwned == true && yellowColorOwned == false) {
+    } else if (redColorOwned == true && emeraldColorOwned == false && blueColorOwned == true && yellowColorOwned == false) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
-                case ("r"): //redhero color
+                case ("r"): //red hero color
                 case ("R"):
-                    heroIdle.src = "./res/img/red.hero.idle.gif";
-                    heroAttack.src = "./res/img/red.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/red.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.gif";
+                        heroAttack.src = "./res/img/red.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/red.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.png";
+                        heroAttack.src = "./res/img/red.hero.attack.png";
+                    }
                     break;
                 case ("b"): //blue hero color
                 case ("B"):
-                    heroIdle.src = "./res/img/blue.hero.idle.gif";
-                    heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/blue.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.gif";
+                        heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/blue.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.png";
+                        heroAttack.src = "./res/img/blue.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
-    } else if (redColorOwned == true && greenColorOwned == false && blueColorOwned == true && yellowColorOwned == true) {
+    } else if (redColorOwned == true && emeraldColorOwned == false && blueColorOwned == true && yellowColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
-                case ("r"): //redhero color
+                case ("r"): //red hero color
                 case ("R"):
-                    heroIdle.src = "./res/img/red.hero.idle.gif";
-                    heroAttack.src = "./res/img/red.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/red.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.gif";
+                        heroAttack.src = "./res/img/red.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/red.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.png";
+                        heroAttack.src = "./res/img/red.hero.attack.png";
+                    }
                     break;
                 case ("b"): //blue hero color
                 case ("B"):
-                    heroIdle.src = "./res/img/blue.hero.idle.gif";
-                    heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/blue.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.gif";
+                        heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/blue.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.png";
+                        heroAttack.src = "./res/img/blue.hero.attack.png";
+                    }
                     break;
                 case ("y"): //yellow hero color
                 case ("Y"):
-                    heroIdle.src = "./res/img/yellow.hero.idle.gif";
-                    heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.gif";
+                        heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.png";
+                        heroAttack.src = "./res/img/yellow.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
-    } else if (redColorOwned == true && greenColorOwned == true && blueColorOwned == false && yellowColorOwned == true) {
+    } else if (redColorOwned == true && emeraldColorOwned == true && blueColorOwned == false && yellowColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
-                case ("r"): //redhero color
+                case ("r"): //red hero color
                 case ("R"):
-                    heroIdle.src = "./res/img/red.hero.idle.gif";
-                    heroAttack.src = "./res/img/red.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/red.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.gif";
+                        heroAttack.src = "./res/img/red.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/red.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.png";
+                        heroAttack.src = "./res/img/red.hero.attack.png";
+                    }
                     break;
-                case ("g"): //green hero color
-                case ("G"):
-                    heroIdle.src = "./res/img/green.hero.idle.gif";
-                    heroAttack.src = "./res/img/green.hero.attack.gif";
+                case ("e"): //emerald hero color
+                case ("E"):
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/green.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.gif";
+                        heroAttack.src = "./res/img/green.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/green.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.png";
+                        heroAttack.src = "./res/img/green.hero.attack.png";
+                    }
                     break;
                 case ("y"): //yellow hero color
                 case ("Y"):
-                    heroIdle.src = "./res/img/yellow.hero.idle.gif";
-                    heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.gif";
+                        heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.png";
+                        heroAttack.src = "./res/img/yellow.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
-    } else if (redColorOwned == true && greenColorOwned == false && blueColorOwned == false && yellowColorOwned == true) {
+    } else if (redColorOwned == true && emeraldColorOwned == false && blueColorOwned == false && yellowColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
-                case ("r"): //redhero color
+                case ("r"): //red hero color
                 case ("R"):
-                    heroIdle.src = "./res/img/red.hero.idle.gif";
-                    heroAttack.src = "./res/img/red.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/red.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.gif";
+                        heroAttack.src = "./res/img/red.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/red.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.png";
+                        heroAttack.src = "./res/img/red.hero.attack.png";
+                    }
                     break;
                 case ("y"): //yellow hero color
                 case ("Y"):
-                    heroIdle.src = "./res/img/yellow.hero.idle.gif";
-                    heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.gif";
+                        heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.png";
+                        heroAttack.src = "./res/img/yellow.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
@@ -3142,368 +3587,545 @@ redColor.onclick = () => {
     }
 }
 
-let greenColorValue = 7;
-greenColor.onclick = () => {
-    greenColor.style.borderColor = "red";
-    greenColor.style.backgroundColor = "white";
-    greenColor.style.color = "red";
-    if (yourXP.innerText >= greenColorValue) {
-        greenColor.style.display = "none";
-        greenColor.disable = false;
+let emeraldColorValue = 7;
+emeraldColor.onclick = () => {
+    emeraldColor.style.borderColor = "red";
+    emeraldColor.style.backgroundColor = "white";
+    emeraldColor.style.color = "red";
+    if (yourXP.innerText >= emeraldColorValue) {
+        emeraldColor.style.display = "none";
+        emeraldColor.disable = false;
         audioButtonClick.src = "./res/audio/buttonsound.mp3";
         audioButtonClick.play();
-        heroIdle.src = "./res/img/green.hero.idle.gif";
-        heroAttack.src = "./res/img/green.hero.attack.gif";
-        yourXPValue -= greenColorValue;
+        if (highDetail) {
+            heroIdle.src = "./res/img/green.hero.idle.gif";
+            heroIdleAppearance.src = "./res/img/green.hero.idle.gif";
+            heroAttack.src = "./res/img/green.hero.attack.gif";
+        } else if (highDetail == false) {
+            heroIdle.src = "./res/img/green.hero.idle.png";
+            heroIdleAppearance.src = "./res/img/green.hero.idle.png";
+            heroAttack.src = "./res/img/green.hero.attack.png";
+        }
+        yourXPValue -= emeraldColorValue;
         yourXP.innerText = yourXPValue;
-        greenColorOwned = true;
+        emeraldColorOwned = true;
     } else {
-        greenColor.disable = true;
-        greenColorOwned = false;
+        emeraldColor.disable = true;
+        emeraldColorOwned = false;
     }
-    if (greenColorOwned == true) {
+    if (emeraldColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
-                case ("g"): //green hero color
-                case ("G"):
-                    heroIdle.src = "./res/img/green.hero.idle.gif";
-                    heroAttack.src = "./res/img/green.hero.attack.gif";
+                case ("e"): //emerald hero color
+                case ("E"):
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/green.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.gif";
+                        heroAttack.src = "./res/img/green.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/green.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.png";
+                        heroAttack.src = "./res/img/green.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
     }
-    if (redColorOwned == true && greenColorOwned == true && blueColorOwned == true && yellowColorOwned == true) {
+    if (redColorOwned == true && emeraldColorOwned == true && blueColorOwned == true && yellowColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
-                case ("r"): //redhero color
+                case ("r"): //red hero color
                 case ("R"):
-                    heroIdle.src = "./res/img/red.hero.idle.gif";
-                    heroAttack.src = "./res/img/red.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/red.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.gif";
+                        heroAttack.src = "./res/img/red.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/red.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.png";
+                        heroAttack.src = "./res/img/red.hero.attack.png";
+                    }
                     break;
-                case ("g"): //green hero color
-                case ("G"):
-                    heroIdle.src = "./res/img/green.hero.idle.gif";
-                    heroAttack.src = "./res/img/green.hero.attack.gif";
+                case ("e"): //emerald hero color
+                case ("E"):
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/green.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.gif";
+                        heroAttack.src = "./res/img/green.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/green.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.png";
+                        heroAttack.src = "./res/img/green.hero.attack.png";
+                    }
                     break;
                 case ("b"): //blue hero color
                 case ("B"):
-                    heroIdle.src = "./res/img/blue.hero.idle.gif";
-                    heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/blue.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.gif";
+                        heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/blue.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.png";
+                        heroAttack.src = "./res/img/blue.hero.attack.png";
+                    }
                     break;
                 case ("y"): //yellow hero color
                 case ("Y"):
-                    heroIdle.src = "./res/img/yellow.hero.idle.gif";
-                    heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.gif";
+                        heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.png";
+                        heroAttack.src = "./res/img/yellow.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
-    } else if (redColorOwned == true && greenColorOwned == true && blueColorOwned == false && yellowColorOwned == false) {
+    } else if (redColorOwned == true && emeraldColorOwned == true && blueColorOwned == false && yellowColorOwned == false) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
+
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
-                case ("r"): //redhero color
+                case ("r"): //red hero color
                 case ("R"):
-                    heroIdle.src = "./res/img/red.hero.idle.gif";
-                    heroAttack.src = "./res/img/red.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/red.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.gif";
+                        heroAttack.src = "./res/img/red.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/red.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.png";
+                        heroAttack.src = "./res/img/red.hero.attack.png";
+                    }
                     break;
-                case ("g"): //green hero color
-                case ("G"):
-                    heroIdle.src = "./res/img/green.hero.idle.gif";
-                    heroAttack.src = "./res/img/green.hero.attack.gif";
+                case ("e"): //emerald hero color
+                case ("E"):
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/green.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.gif";
+                        heroAttack.src = "./res/img/green.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/green.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.png";
+                        heroAttack.src = "./res/img/green.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
-    } else if (redColorOwned == true && greenColorOwned == true && blueColorOwned == true && yellowColorOwned == false) {
+    } else if (redColorOwned == true && emeraldColorOwned == true && blueColorOwned == true && yellowColorOwned == false) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
+
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
-                case ("r"): //redhero color
+                case ("r"): //red hero color
                 case ("R"):
-                    heroIdle.src = "./res/img/red.hero.idle.gif";
-                    heroAttack.src = "./res/img/red.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/red.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.gif";
+                        heroAttack.src = "./res/img/red.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/red.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.png";
+                        heroAttack.src = "./res/img/red.hero.attack.png";
+                    }
                     break;
-                case ("g"): //green hero color
-                case ("G"):
-                    heroIdle.src = "./res/img/green.hero.idle.gif";
-                    heroAttack.src = "./res/img/green.hero.attack.gif";
+                case ("e"): //emerald hero color
+                case ("E"):
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/green.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.gif";
+                        heroAttack.src = "./res/img/green.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/green.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.png";
+                        heroAttack.src = "./res/img/green.hero.attack.png";
+                    }
                     break;
                 case ("b"): //blue hero color
                 case ("B"):
-                    heroIdle.src = "./res/img/blue.hero.idle.gif";
-                    heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/blue.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.gif";
+                        heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/blue.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.png";
+                        heroAttack.src = "./res/img/blue.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
 
             }
         });
-    } else if (redColorOwned == false && greenColorOwned == true && blueColorOwned == true && yellowColorOwned == false) {
+    } else if (redColorOwned == false && emeraldColorOwned == true && blueColorOwned == true && yellowColorOwned == false) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
+
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
 
-                case ("g"): //green hero color
-                case ("G"):
-                    heroIdle.src = "./res/img/green.hero.idle.gif";
-                    heroAttack.src = "./res/img/green.hero.attack.gif";
+                case ("e"): //emerald hero color
+                case ("E"):
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/green.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.gif";
+                        heroAttack.src = "./res/img/green.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/green.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.png";
+                        heroAttack.src = "./res/img/green.hero.attack.png";
+                    }
                     break;
                 case ("b"): //blue hero color
                 case ("B"):
-                    heroIdle.src = "./res/img/blue.hero.idle.gif";
-                    heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/blue.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.gif";
+                        heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/blue.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.png";
+                        heroAttack.src = "./res/img/blue.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
 
             }
         });
-    } else if (redColorOwned == false && greenColorOwned == true && blueColorOwned == true && yellowColorOwned == true) {
+    } else if (redColorOwned == false && emeraldColorOwned == true && blueColorOwned == true && yellowColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
+
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
 
-                case ("g"): //green hero color
-                case ("G"):
-                    heroIdle.src = "./res/img/green.hero.idle.gif";
-                    heroAttack.src = "./res/img/green.hero.attack.gif";
+                case ("e"): //emerald hero color
+                case ("E"):
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/green.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.gif";
+                        heroAttack.src = "./res/img/green.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/green.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.png";
+                        heroAttack.src = "./res/img/green.hero.attack.png";
+                    }
                     break;
                 case ("b"): //blue hero color
                 case ("B"):
-                    heroIdle.src = "./res/img/blue.hero.idle.gif";
-                    heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/blue.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.gif";
+                        heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/blue.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.png";
+                        heroAttack.src = "./res/img/blue.hero.attack.png";
+                    }
                     break;
                 case ("y"): //yellow hero color
                 case ("Y"):
-                    heroIdle.src = "./res/img/yellow.hero.idle.gif";
-                    heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.gif";
+                        heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.png";
+                        heroAttack.src = "./res/img/yellow.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
-    } else if (redColorOwned == true && greenColorOwned == true && blueColorOwned == false && yellowColorOwned == true) {
+    } else if (redColorOwned == true && emeraldColorOwned == true && blueColorOwned == false && yellowColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
+
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
-                case ("r"): //redhero color
+                case ("r"): //red hero color
                 case ("R"):
-                    heroIdle.src = "./res/img/red.hero.idle.gif";
-                    heroAttack.src = "./res/img/red.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/red.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.gif";
+                        heroAttack.src = "./res/img/red.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/red.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.png";
+                        heroAttack.src = "./res/img/red.hero.attack.png";
+                    }
                     break;
-                case ("g"): //green hero color
-                case ("G"):
-                    heroIdle.src = "./res/img/green.hero.idle.gif";
-                    heroAttack.src = "./res/img/green.hero.attack.gif";
+                case ("e"): //emerald hero color
+                case ("E"):
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/green.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.gif";
+                        heroAttack.src = "./res/img/green.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/green.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.png";
+                        heroAttack.src = "./res/img/green.hero.attack.png";
+                    }
                     break;
 
                 case ("y"): //yellow hero color
                 case ("Y"):
-                    heroIdle.src = "./res/img/yellow.hero.idle.gif";
-                    heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.gif";
+                        heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.png";
+                        heroAttack.src = "./res/img/yellow.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
-    } else if (redColorOwned == false && greenColorOwned == true && blueColorOwned == false && yellowColorOwned == true) {
+    } else if (redColorOwned == false && emeraldColorOwned == true && blueColorOwned == false && yellowColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
+
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
 
-                case ("g"): //green hero color
-                case ("G"):
-                    heroIdle.src = "./res/img/green.hero.idle.gif";
-                    heroAttack.src = "./res/img/green.hero.attack.gif";
+                case ("e"): //emerald hero color
+                case ("E"):
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/green.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.gif";
+                        heroAttack.src = "./res/img/green.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/green.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.png";
+                        heroAttack.src = "./res/img/green.hero.attack.png";
+                    }
                     break;
 
                 case ("y"): //yellow hero color
                 case ("Y"):
-                    heroIdle.src = "./res/img/yellow.hero.idle.gif";
-                    heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.gif";
+                        heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.png";
+                        heroAttack.src = "./res/img/yellow.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
@@ -3522,8 +4144,15 @@ blueColor.onclick = () => {
         blueColor.disable = false;
         audioButtonClick.src = "./res/audio/buttonsound.mp3";
         audioButtonClick.play();
-        heroIdle.src = "./res/img/blue.hero.idle.gif";
-        heroAttack.src = "./res/img/blue.hero.attack.gif";
+        if (highDetail) {
+            heroIdle.src = "./res/img/blue.hero.idle.gif";
+            heroIdleAppearance.src = "./res/img/blue.hero.idle.gif";
+            heroAttack.src = "./res/img/blue.hero.attack.gif";
+        } else if (highDetail == false) {
+            heroIdle.src = "./res/img/blue.hero.idle.png";
+            heroIdleAppearance.src = "./res/img/blue.hero.idle.png";
+            heroAttack.src = "./res/img/blue.hero.attack.png";
+        }
         yourXPValue -= blueColorValue;
         yourXP.innerText = yourXPValue;
         blueColor = true;
@@ -3533,344 +4162,516 @@ blueColor.onclick = () => {
     }
     if (blueColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
+
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
                 case ("b"): //blue hero color
                 case ("B"):
-                    heroIdle.src = "./res/img/blue.hero.idle.gif";
-                    heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/blue.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.gif";
+                        heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/blue.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.png";
+                        heroAttack.src = "./res/img/blue.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
     }
-    if (redColorOwned == true && greenColorOwned == true && blueColorOwned == true && yellowColorOwned == true) {
+    if (redColorOwned == true && emeraldColorOwned == true && blueColorOwned == true && yellowColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
+
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
-                case ("r"): //redhero color
+                case ("r"): //red hero color
                 case ("R"):
-                    heroIdle.src = "./res/img/red.hero.idle.gif";
-                    heroAttack.src = "./res/img/red.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/red.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.gif";
+                        heroAttack.src = "./res/img/red.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/red.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.png";
+                        heroAttack.src = "./res/img/red.hero.attack.png";
+                    }
                     break;
-                case ("g"): //green hero color
-                case ("G"):
-                    heroIdle.src = "./res/img/green.hero.idle.gif";
-                    heroAttack.src = "./res/img/green.hero.attack.gif";
+                case ("e"): //emerald hero color
+                case ("E"):
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/green.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.gif";
+                        heroAttack.src = "./res/img/green.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/green.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.png";
+                        heroAttack.src = "./res/img/green.hero.attack.png";
+                    }
                     break;
                 case ("b"): //blue hero color
                 case ("B"):
-                    heroIdle.src = "./res/img/blue.hero.idle.gif";
-                    heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/blue.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.gif";
+                        heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/blue.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.png";
+                        heroAttack.src = "./res/img/blue.hero.attack.png";
+                    }
                     break;
                 case ("y"): //yellow hero color
                 case ("Y"):
-                    heroIdle.src = "./res/img/yellow.hero.idle.gif";
-                    heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.gif";
+                        heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.png";
+                        heroAttack.src = "./res/img/yellow.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
-    } else if (redColorOwned == true && greenColorOwned == false && blueColorOwned == true && yellowColorOwned == false) {
+    } else if (redColorOwned == true && emeraldColorOwned == false && blueColorOwned == true && yellowColorOwned == false) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
+
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
-                case ("r"): //redhero color
+                case ("r"): //red hero color
                 case ("R"):
-                    heroIdle.src = "./res/img/red.hero.idle.gif";
-                    heroAttack.src = "./res/img/red.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/red.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.gif";
+                        heroAttack.src = "./res/img/red.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/red.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.png";
+                        heroAttack.src = "./res/img/red.hero.attack.png";
+                    }
                     break;
 
                 case ("b"): //blue hero color
                 case ("B"):
-                    heroIdle.src = "./res/img/blue.hero.idle.gif";
-                    heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/blue.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.gif";
+                        heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/blue.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.png";
+                        heroAttack.src = "./res/img/blue.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
 
             }
         });
-    } else if (redColorOwned == true && greenColorOwned == true && blueColorOwned == true && yellowColorOwned == false) {
+    } else if (redColorOwned == true && emeraldColorOwned == true && blueColorOwned == true && yellowColorOwned == false) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
+
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
-                case ("r"): //redhero color
+                case ("r"): //red hero color
                 case ("R"):
-                    heroIdle.src = "./res/img/red.hero.idle.gif";
-                    heroAttack.src = "./res/img/red.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/red.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.gif";
+                        heroAttack.src = "./res/img/red.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/red.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.png";
+                        heroAttack.src = "./res/img/red.hero.attack.png";
+                    }
                     break;
-                case ("g"): //green hero color
-                case ("G"):
-                    heroIdle.src = "./res/img/green.hero.idle.gif";
-                    heroAttack.src = "./res/img/green.hero.attack.gif";
+                case ("e"): //emerald hero color
+                case ("E"):
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/green.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.gif";
+                        heroAttack.src = "./res/img/green.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/green.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.png";
+                        heroAttack.src = "./res/img/green.hero.attack.png";
+                    }
                     break;
                 case ("b"): //blue hero color
                 case ("B"):
-                    heroIdle.src = "./res/img/blue.hero.idle.gif";
-                    heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/blue.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.gif";
+                        heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/blue.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.png";
+                        heroAttack.src = "./res/img/blue.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
-    } else if (redColorOwned == false && greenColorOwned == true && blueColorOwned == true && yellowColorOwned == false) {
+    } else if (redColorOwned == false && emeraldColorOwned == true && blueColorOwned == true && yellowColorOwned == false) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
+
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
 
-                case ("g"): //green hero color
-                case ("G"):
-                    heroIdle.src = "./res/img/green.hero.idle.gif";
-                    heroAttack.src = "./res/img/green.hero.attack.gif";
+                case ("e"): //emerald hero color
+                case ("E"):
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/green.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.gif";
+                        heroAttack.src = "./res/img/green.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/green.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.png";
+                        heroAttack.src = "./res/img/green.hero.attack.png";
+                    }
                     break;
                 case ("b"): //blue hero color
                 case ("B"):
-                    heroIdle.src = "./res/img/blue.hero.idle.gif";
-                    heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/blue.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.gif";
+                        heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/blue.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.png";
+                        heroAttack.src = "./res/img/blue.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
-    } else if (redColorOwned == false && greenColorOwned == true && blueColorOwned == true && yellowColorOwned == true) {
+    } else if (redColorOwned == false && emeraldColorOwned == true && blueColorOwned == true && yellowColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
+
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
-                case ("g"): //green hero color
-                case ("G"):
-                    heroIdle.src = "./res/img/green.hero.idle.gif";
-                    heroAttack.src = "./res/img/green.hero.attack.gif";
+                case ("e"): //emerald hero color
+                case ("E"):
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/green.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.gif";
+                        heroAttack.src = "./res/img/green.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/green.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.png";
+                        heroAttack.src = "./res/img/green.hero.attack.png";
+                    }
                     break;
                 case ("b"): //blue hero color
                 case ("B"):
-                    heroIdle.src = "./res/img/blue.hero.idle.gif";
-                    heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/blue.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.gif";
+                        heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/blue.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.png";
+                        heroAttack.src = "./res/img/blue.hero.attack.png";
+                    }
                     break;
                 case ("y"): //yellow hero color
                 case ("Y"):
-                    heroIdle.src = "./res/img/yellow.hero.idle.gif";
-                    heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.gif";
+                        heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.png";
+                        heroAttack.src = "./res/img/yellow.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
-    } else if (redColorOwned == true && greenColorOwned == false && blueColorOwned == true && yellowColorOwned == true) {
+    } else if (redColorOwned == true && emeraldColorOwned == false && blueColorOwned == true && yellowColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
+
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
-                case ("r"): //redhero color
+                case ("r"): //red hero color
                 case ("R"):
-                    heroIdle.src = "./res/img/red.hero.idle.gif";
-                    heroAttack.src = "./res/img/red.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/red.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.gif";
+                        heroAttack.src = "./res/img/red.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/red.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.png";
+                        heroAttack.src = "./res/img/red.hero.attack.png";
+                    }
                     break;
 
                 case ("b"): //blue hero color
                 case ("B"):
-                    heroIdle.src = "./res/img/blue.hero.idle.gif";
-                    heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/blue.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.gif";
+                        heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/blue.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.png";
+                        heroAttack.src = "./res/img/blue.hero.attack.png";
+                    }
                     break;
                 case ("y"): //yellow hero color
                 case ("Y"):
-                    heroIdle.src = "./res/img/yellow.hero.idle.gif";
-                    heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.gif";
+                        heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.png";
+                        heroAttack.src = "./res/img/yellow.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
-    } else if (redColorOwned == false && greenColorOwned == false && blueColorOwned == true && yellowColorOwned == true) {
+    } else if (redColorOwned == false && emeraldColorOwned == false && blueColorOwned == true && yellowColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
+
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
                 case ("b"): //blue hero color
                 case ("B"):
-                    heroIdle.src = "./res/img/blue.hero.idle.gif";
-                    heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/blue.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.gif";
+                        heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/blue.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.png";
+                        heroAttack.src = "./res/img/blue.hero.attack.png";
+                    }
                     break;
                 case ("y"): //yellow hero color
                 case ("Y"):
-                    heroIdle.src = "./res/img/yellow.hero.idle.gif";
-                    heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.gif";
+                        heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.png";
+                        heroAttack.src = "./res/img/yellow.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
@@ -3889,335 +4690,498 @@ yellowColor.onclick = () => {
         yellowColor.disable = false;
         audioButtonClick.src = "./res/audio/buttonsound.mp3";
         audioButtonClick.play();
-        heroIdle.src = "./res/img/yellow.hero.idle.gif";
-        heroAttack.src = "./res/img/yellow.hero.attack.gif";
+        if (highDetail) {
+            heroIdle.src = "./res/img/yellow.hero.idle.gif";
+            heroIdleAppearance.src = "./res/img/yellow.hero.idle.gif";
+            heroAttack.src = "./res/img/yellow.hero.attack.gif";
+        } else if (highDetail == false) {
+            heroIdle.src = "./res/img/yellow.hero.idle.png";
+            heroIdleAppearance.src = "./res/img/yellow.hero.idle.png";
+            heroAttack.src = "./res/img/yellow.hero.attack.png";
+        }
         yourXPValue -= yellowColorValue;
         yourXP.innerText = yourXPValue;
         yellowColorOwned = true;
     } else {
         yellowColor.disable = true;
-        yellowColor = false;
+        yellowColorOwned = false;
     }
     if (yellowColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
+
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
                 case ("y"): //yellow hero color
                 case ("Y"):
-                    heroIdle.src = "./res/img/yellow.hero.idle.gif";
-                    heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.gif";
+                        heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.png";
+                        heroAttack.src = "./res/img/yellow.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
     }
-    if (redColorOwned == true && greenColorOwned == true && blueColorOwned == true && yellowColorOwned == true) {
+    if (redColorOwned == true && emeraldColorOwned == true && blueColorOwned == true && yellowColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
+
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
-                case ("r"): //redhero color
+                case ("r"): //red hero color
                 case ("R"):
-                    heroIdle.src = "./res/img/red.hero.idle.gif";
-                    heroAttack.src = "./res/img/red.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/red.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.gif";
+                        heroAttack.src = "./res/img/red.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/red.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.png";
+                        heroAttack.src = "./res/img/red.hero.attack.png";
+                    }
                     break;
-                case ("g"): //green hero color
-                case ("G"):
-                    heroIdle.src = "./res/img/green.hero.idle.gif";
-                    heroAttack.src = "./res/img/green.hero.attack.gif";
+                case ("e"): //emerald hero color
+                case ("E"):
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/green.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.gif";
+                        heroAttack.src = "./res/img/green.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/green.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.png";
+                        heroAttack.src = "./res/img/green.hero.attack.png";
+                    }
                     break;
                 case ("b"): //blue hero color
                 case ("B"):
-                    heroIdle.src = "./res/img/blue.hero.idle.gif";
-                    heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/blue.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.gif";
+                        heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/blue.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.png";
+                        heroAttack.src = "./res/img/blue.hero.attack.png";
+                    }
                     break;
                 case ("y"): //yellow hero color
                 case ("Y"):
-                    heroIdle.src = "./res/img/yellow.hero.idle.gif";
-                    heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.gif";
+                        heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.png";
+                        heroAttack.src = "./res/img/yellow.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
-    } else if (redColorOwned == true && greenColorOwned == false && blueColorOwned == false && yellowColorOwned == true) {
+    } else if (redColorOwned == true && emeraldColorOwned == false && blueColorOwned == false && yellowColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
+
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
-                case ("r"): //redhero color
+                case ("r"): //red hero color
                 case ("R"):
-                    heroIdle.src = "./res/img/red.hero.idle.gif";
-                    heroAttack.src = "./res/img/red.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/red.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.gif";
+                        heroAttack.src = "./res/img/red.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/red.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.png";
+                        heroAttack.src = "./res/img/red.hero.attack.png";
+                    }
                     break;
 
                 case ("y"): //yellow hero color
                 case ("Y"):
-                    heroIdle.src = "./res/img/yellow.hero.idle.gif";
-                    heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.gif";
+                        heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.png";
+                        heroAttack.src = "./res/img/yellow.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
-    } else if (redColorOwned == true && greenColorOwned == true && blueColorOwned == false && yellowColorOwned == true) {
+    } else if (redColorOwned == true && emeraldColorOwned == true && blueColorOwned == false && yellowColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
+
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
-                case ("r"): //redhero color
+                case ("r"): //red hero color
                 case ("R"):
-                    heroIdle.src = "./res/img/red.hero.idle.gif";
-                    heroAttack.src = "./res/img/red.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/red.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.gif";
+                        heroAttack.src = "./res/img/red.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/red.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.png";
+                        heroAttack.src = "./res/img/red.hero.attack.png";
+                    }
                     break;
-                case ("g"): //green hero color
-                case ("G"):
-                    heroIdle.src = "./res/img/green.hero.idle.gif";
-                    heroAttack.src = "./res/img/green.hero.attack.gif";
+                case ("e"): //emerald hero color
+                case ("E"):
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/green.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.gif";
+                        heroAttack.src = "./res/img/green.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/green.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.png";
+                        heroAttack.src = "./res/img/green.hero.attack.png";
+                    }
                     break;
                 case ("y"): //yellow hero color
                 case ("Y"):
-                    heroIdle.src = "./res/img/yellow.hero.idle.gif";
-                    heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.gif";
+                        heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.png";
+                        heroAttack.src = "./res/img/yellow.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
-    } else if (redColorOwned == false && greenColorOwned == true && blueColorOwned == false && yellowColorOwned == true) {
+    } else if (redColorOwned == false && emeraldColorOwned == true && blueColorOwned == false && yellowColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
+
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
 
-                case ("g"): //green hero color
-                case ("G"):
-                    heroIdle.src = "./res/img/green.hero.idle.gif";
-                    heroAttack.src = "./res/img/green.hero.attack.gif";
+                case ("e"): //emerald hero color
+                case ("E"):
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/green.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.gif";
+                        heroAttack.src = "./res/img/green.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/green.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.png";
+                        heroAttack.src = "./res/img/green.hero.attack.png";
+                    }
                     break;
 
                 case ("y"): //yellow hero color
                 case ("Y"):
-                    heroIdle.src = "./res/img/yellow.hero.idle.gif";
-                    heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.gif";
+                        heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.png";
+                        heroAttack.src = "./res/img/yellow.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
-    } else if (redColorOwned == false && greenColorOwned == true && blueColorOwned == true && yellowColorOwned == true) {
+    } else if (redColorOwned == false && emeraldColorOwned == true && blueColorOwned == true && yellowColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
+
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
 
-                case ("g"): //green hero color
-                case ("G"):
-                    heroIdle.src = "./res/img/green.hero.idle.gif";
-                    heroAttack.src = "./res/img/green.hero.attack.gif";
+                case ("e"): //emerald hero color
+                case ("E"):
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/green.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.gif";
+                        heroAttack.src = "./res/img/green.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/green.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/green.hero.idle.png";
+                        heroAttack.src = "./res/img/green.hero.attack.png";
+                    }
                     break;
                 case ("b"): //blue hero color
                 case ("B"):
-                    heroIdle.src = "./res/img/blue.hero.idle.gif";
-                    heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/blue.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.gif";
+                        heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/blue.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.png";
+                        heroAttack.src = "./res/img/blue.hero.attack.png";
+                    }
                     break;
                 case ("y"): //yellow hero color
                 case ("Y"):
-                    heroIdle.src = "./res/img/yellow.hero.idle.gif";
-                    heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.gif";
+                        heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.png";
+                        heroAttack.src = "./res/img/yellow.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
-    } else if (redColorOwned == true && greenColorOwned == false && blueColorOwned == true && yellowColorOwned == true) {
+    } else if (redColorOwned == true && emeraldColorOwned == false && blueColorOwned == true && yellowColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
+
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
                     break;
-                case ("r"): //redhero color
+                case ("r"): //red hero color
                 case ("R"):
-                    heroIdle.src = "./res/img/red.hero.idle.gif";
-                    heroAttack.src = "./res/img/red.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/red.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.gif";
+                        heroAttack.src = "./res/img/red.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/red.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/red.hero.idle.png";
+                        heroAttack.src = "./res/img/red.hero.attack.png";
+                    }
                     break;
 
                 case ("b"): //blue hero color
                 case ("B"):
-                    heroIdle.src = "./res/img/blue.hero.idle.gif";
-                    heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/blue.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.gif";
+                        heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/blue.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.png";
+                        heroAttack.src = "./res/img/blue.hero.attack.png";
+                    }
                     break;
                 case ("y"): //yellow hero color
                 case ("Y"):
-                    heroIdle.src = "./res/img/yellow.hero.idle.gif";
-                    heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.gif";
+                        heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.png";
+                        heroAttack.src = "./res/img/yellow.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
             }
         });
-    } else if (redColorOwned == false && greenColorOwned == false && blueColorOwned == true && yellowColorOwned == true) {
+    } else if (redColorOwned == false && emeraldColorOwned == false && blueColorOwned == true && yellowColorOwned == true) {
         document.addEventListener("keyup", (e) => {
-            console.log(e);
+
             switch (e.key) {
                 case ("7"): //god mode
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/secret.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.gif";
                         heroAttack.src = "./res/img/secret.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/secret.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/secret.hero.idle.png";
                         heroAttack.src = "./res/img/secret.hero.attack.png";
                     }
                     yourHp.innerText += 0;
-                    // Revert to normal state
+                    //normal mode
                     setTimeout(() => {
                         yourHp.innerText = yourHpValue;
                     }, 5000);
@@ -4225,21 +5189,37 @@ yellowColor.onclick = () => {
 
                 case ("b"): //blue hero color
                 case ("B"):
-                    heroIdle.src = "./res/img/blue.hero.idle.gif";
-                    heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/blue.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.gif";
+                        heroAttack.src = "./res/img/blue.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/blue.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/blue.hero.idle.png";
+                        heroAttack.src = "./res/img/blue.hero.attack.png";
+                    }
                     break;
                 case ("y"): //yellow hero color
                 case ("Y"):
-                    heroIdle.src = "./res/img/yellow.hero.idle.gif";
-                    heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    if (highDetail) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.gif";
+                        heroAttack.src = "./res/img/yellow.hero.attack.gif";
+                    } else if (highDetail == false) {
+                        heroIdle.src = "./res/img/yellow.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/yellow.hero.idle.png";
+                        heroAttack.src = "./res/img/yellow.hero.attack.png";
+                    }
                     break;
                 case ("d"): //black and white default hero color
                 case ("D"):
-                    if (highDetail == true) {
+                    if (highDetail) {
                         heroIdle.src = "./res/img/default.hero.idle.gif";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.gif";
                         heroAttack.src = "./res/img/default.hero.attack.gif";
                     } else if (highDetail == false) {
                         heroIdle.src = "./res/img/default.hero.idle.png";
+                        heroIdleAppearance.src = "./res/img/default.hero.idle.png";
                         heroAttack.src = "./res/img/default.hero.attack.png";
                     }
                     break;
@@ -4250,7 +5230,11 @@ yellowColor.onclick = () => {
 //------------------------------------ cost of colors mouse over
 redColor.onmouseover = () => {
     costOfColors.innerText = redColorValue;
-    overviewSrc.src = "./res/img/red.hero.idle.gif";
+    if (highDetail) {
+        overviewSrc.src = "./res/img/red.hero.idle.gif";
+    } else if (highDetail == false) {
+        overviewSrc.src = "./res/img/red.hero.idle.png";
+    }
     overview.style.display = "block";
     audioButtonClick.src = "./res/audio/choose.mp3";
     audioButtonClick.play();
@@ -4259,20 +5243,28 @@ redColor.onmouseover = () => {
     redColor.style.color = "red";
     redColor.style.backgroundColor = "black";
 }
-greenColor.onmouseover = () => {
-    costOfColors.innerText = greenColorValue;
-    overviewSrc.src = "./res/img/green.hero.idle.gif";
+emeraldColor.onmouseover = () => {
+    costOfColors.innerText = emeraldColorValue;
+    if (highDetail) {
+        overviewSrc.src = "./res/img/green.hero.idle.gif";
+    } else if (highDetail == false) {
+        overviewSrc.src = "./res/img/green.hero.idle.png";
+    }
     overview.style.display = "block";
     audioButtonClick.src = "./res/audio/choose.mp3";
     audioButtonClick.play();
     costingCustomization.style.color = "rgb(0,255,0)";
-    greenColor.style.borderColor = "rgb(0,255,0)";
-    greenColor.style.color = "rgb(0,255,0)";
-    greenColor.style.backgroundColor = "black";
+    emeraldColor.style.borderColor = "rgb(0,255,0)";
+    emeraldColor.style.color = "rgb(0,255,0)";
+    emeraldColor.style.backgroundColor = "black";
 }
 blueColor.onmouseover = () => {
     costOfColors.innerText = blueColorValue;
-    overviewSrc.src = "./res/img/blue.hero.idle.gif";
+    if (highDetail) {
+        overviewSrc.src = "./res/img/blue.hero.idle.gif";
+    } else if (highDetail == false) {
+        overviewSrc.src = "./res/img/blue.hero.idle.png";
+    }
     overview.style.display = "block";
     audioButtonClick.src = "./res/audio/choose.mp3";
     audioButtonClick.play();
@@ -4283,7 +5275,11 @@ blueColor.onmouseover = () => {
 }
 yellowColor.onmouseover = () => {
     costOfColors.innerText = yellowColorValue;
-    overviewSrc.src = "./res/img/yellow.hero.idle.gif";
+    if (highDetail) {
+        overviewSrc.src = "./res/img/yellow.hero.idle.gif";
+    } else if (highDetail == false) {
+        overviewSrc.src = "./res/img/yellow.hero.idle.png";
+    }
     overview.style.display = "block";
     audioButtonClick.src = "./res/audio/choose.mp3";
     audioButtonClick.play();
@@ -4302,14 +5298,14 @@ redColor.onmouseout = () => {
     redColor.style.color = "black";
     redColor.style.backgroundColor = "red";
 }
-greenColor.onmouseout = () => {
+emeraldColor.onmouseout = () => {
     costOfColors.innerText = 0;
     overviewSrc.src = "./res/img/default.hero.idle.gif";
     overview.style.display = "none";
     costingCustomization.style.color = "white";
-    greenColor.style.borderColor = "black";
-    greenColor.style.color = "black";
-    greenColor.style.backgroundColor = "rgb(0,255,0)";
+    emeraldColor.style.borderColor = "black";
+    emeraldColor.style.color = "black";
+    emeraldColor.style.backgroundColor = "rgb(0,255,0)";
 }
 blueColor.onmouseout = () => {
     costOfColors.innerText = 0;
@@ -4483,33 +5479,6 @@ yourXP.style.fontWeight = "bold";
 yourHp.style.color = "rgb(0, 255, 0)";
 enemyHp.style.color = "rgb(255, 0, 0)";
 
-
-//------------------------------------ hero audio
-heroIdle.onmouseover = () => {
-    audioLobbyBackground.src = "./res/audio/bomb.mp3";
-    audioLobbyBackground.play();
-}
-heroAttack.onmouseout = () => {
-    audioLobbyBackground.pause();
-    audioLobbyBackground.currentTime = 0;
-}
-heroIdle.onmouseout = () => {
-    audioLobbyBackground.pause();
-    audioLobbyBackground.currentTime = 0;
-}
-yourName.onmouseover = () => {
-    audioLobbyBackground.src = "./res/audio/bomb.mp3";
-    audioLobbyBackground.play();
-}
-yourName.onmouseout = () => {
-    audioLobbyBackground.pause();
-    audioLobbyBackground.currentTime = 0;
-}
-
-//------------------------------------ hero hp 
-
-
-
 //------------------------------------ enemy system
 let enemyCrosshair = false;
 
@@ -4602,7 +5571,7 @@ function onKeyUp(e) {
 
 document.addEventListener("mousedown", (e) => {
     if (aKeyDown) {
-        console.log("ZABRANUJU");
+        console.log("I prevent");
         e.preventDefault();
     }
 });
@@ -4618,6 +5587,7 @@ function enemyOnMouseOut() {
     }
     if (enemyHp.innerText == 0 || enemyHp.innerText <= 0) {
         audioButtonClick.pause();
+        audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
         audioButtonClick.currentTime = 0;
         enemyHp.innerText = 0;
         yourHp.innerText = yourHpValue;
@@ -4628,6 +5598,7 @@ function enemyOnMouseOut() {
 function enemyOnClick() {
     if (enemyHp.innerText == 0 || enemyHp.innerText <= 0) {
         audioButtonClick.pause();
+        audioButtonClick.src = "./res/audio/punchAttackSound.mp3";
         audioButtonClick.currentTime = 0;
         enemyHp.innerText = 0;
         yourHp.innerText = yourHpValue;
@@ -4667,27 +5638,27 @@ function enemyKeyDown() {
         "VENOM", "WOLVERINE", "DEADPOOL", "BLACK PANTHER", "GHOST RIDER", "LOKI", "CAPTAIN MARVEL", "THANOS", "BATMAN", "FLASH",
         "WONDER WOMAN", "JOKER", "SUPERMAN", "AQUAMAN", "CATWOMAN", "CYBORG", "GREEN LANTERN", "GREEN ARROW", "NIGHTWING", "SHAZAM",
         "BLACK ADAM", "DOCTOR MANHATTAN", "DARKSEID", "PIKACHU", "SUPER MARIO", "GROOT", "ROBOCOP", "PREDATOR", "TERMINATOR", "GERALT",
-        "DOOMSLAYER", "SOLID SNAKE", "MANDALORIAN", "DARTH VADER", "NARUTO", "GOKU", "JOHN WICK", "KRATOS"];
+        "DOOMSLAYER", "SOLID SNAKE", "MANDALORIAN", "DARTH VADER", "NARUTO", "GOKU", "JOHN WICK", "KRATOS", "DEVIL", "ANGEL"];
 
     const damagedAndFinishedEffectEnemies = ["spiderman", "hulk", "ironman", "thor", "blackwidow", "captainamerica", "doctorstrange",
         "venom", "wolverine", "deadpool", "blackpanther", "ghostrider", "loki", "captainmarvel", "thanos", "batman", "flash",
         "wonderwoman", "joker", "superman", "aquaman", "catwoman", "cyborg", "greenlantern", "greenarrow", "nightwing", "shazam",
         "blackadam", "doctormanhattan", "darkseid", "pikachu", "supermario", "groot", "robocop", "predator", "terminator", "geralt",
-        "doomslayer", "solidsnake", "mandalorian", "darthvader", "naruto", "goku", "johnwick", "kratos"];
+        "doomslayer", "solidsnake", "mandalorian", "darthvader", "naruto", "goku", "johnwick", "kratos", "devil", "angel"];
 
     const damagedAndFinishedEffectEnemiesBGs = ["spiderman", "hulk", "ironman", "thor", "blackwidow", "captainamerica", "doctorstrange",
         "venom", "wolverine", "deadpool", "blackpanther", "ghostrider", "loki", "captainmarvel", "thanos", "batman", "flash",
         "batman", "batman", "batman", "aquaman", "batman", "cyborg", "greenlantern", "greenarrow", "batman", "shazam",
         "blackadam", "doctormanhattan", "darkseid", "pikachu", "supermario", "groot", "robocop", "predator", "terminator", "geralt",
-        "doomslayer", "solidsnake", "mandalorian", "darthvader", "naruto", "goku", "johnwick", "kratos"];
-    if (highDetail == true) {
+        "doomslayer", "solidsnake", "mandalorian", "darthvader", "naruto", "goku", "johnwick", "kratos", "hell", "heaven"];
+    if (highDetail) {
         for (let i = 0; i < enemyTextValue.length; i++) {
             if (enemyHp.innerText <= 15 && enemyHpTextValue.innerText === `${enemyTextValue[i]}´S HP:`) {
                 game.style.backgroundImage = `linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/finished.${damagedAndFinishedEffectEnemiesBGs[i]}BG.gif)`;
                 enemy.src = `./res/img/enemies/enemy.${damagedAndFinishedEffectEnemies[i]}.png`;
                 enemy.style.filter = "grayscale(100%) drop-shadow(0px 20px 10px red)";
 
-                document.body.onmousemove = () => {
+                document.body.onmouseover = () => {
                     if (enemyHp.innerText <= 15) {
                         enemy.style.filter = "grayscale(100%) drop-shadow(0px 20px 10px red)";
                     } else {
@@ -4707,10 +5678,8 @@ function enemyKeyDown() {
                 document.body.onmousemove = () => {
                     if (enemyHp.innerText <= 15) {
                         enemy.style.filter = "grayscale(100%) drop-shadow(0px 20px 10px red)";
-                        game.style.filter = "grayscale(100%)";
                     } else {
                         enemy.style.filter = "none";
-                        game.style.filter = "none";
                     }
                 }
                 break;
@@ -4753,28 +5722,28 @@ function enemyKeyUp() {
         "VENOM", "WOLVERINE", "DEADPOOL", "BLACK PANTHER", "GHOST RIDER", "LOKI", "CAPTAIN MARVEL", "THANOS", "BATMAN", "FLASH",
         "WONDER WOMAN", "JOKER", "SUPERMAN", "AQUAMAN", "CATWOMAN", "CYBORG", "GREEN LANTERN", "GREEN ARROW", "NIGHTWING", "SHAZAM",
         "BLACK ADAM", "DOCTOR MANHATTAN", "DARKSEID", "PIKACHU", "SUPER MARIO", "GROOT", "ROBOCOP", "PREDATOR", "TERMINATOR", "GERALT",
-        "DOOMSLAYER", "SOLID SNAKE", "MANDALORIAN", "DARTH VADER", "NARUTO", "GOKU", "JOHN WICK", "KRATOS"];
+        "DOOMSLAYER", "SOLID SNAKE", "MANDALORIAN", "DARTH VADER", "NARUTO", "GOKU", "JOHN WICK", "KRATOS", "DEVIL", "ANGEL"];
 
     const damagedAndFinishedEffectEnemies = ["spiderman", "hulk", "ironman", "thor", "blackwidow", "captainamerica", "doctorstrange",
         "venom", "wolverine", "deadpool", "blackpanther", "ghostrider", "loki", "captainmarvel", "thanos", "batman", "flash",
         "wonderwoman", "joker", "superman", "aquaman", "catwoman", "cyborg", "greenlantern", "greenarrow", "nightwing", "shazam",
         "blackadam", "doctormanhattan", "darkseid", "pikachu", "supermario", "groot", "robocop", "predator", "terminator", "geralt",
-        "doomslayer", "solidsnake", "mandalorian", "darthvader", "naruto", "goku", "johnwick", "kratos"];
+        "doomslayer", "solidsnake", "mandalorian", "darthvader", "naruto", "goku", "johnwick", "kratos", "devil", "angel"];
 
     const damagedAndFinishedEffectEnemiesBGs = ["spiderman", "hulk", "ironman", "thor", "blackwidow", "captainamerica", "doctorstrange",
         "venom", "wolverine", "deadpool", "blackpanther", "ghostrider", "loki", "captainmarvel", "thanos", "batman", "flash",
         "batman", "batman", "batman", "aquaman", "batman", "cyborg", "greenlantern", "greenarrow", "batman", "shazam",
         "blackadam", "doctormanhattan", "darkseid", "pikachu", "supermario", "groot", "robocop", "predator", "terminator", "geralt",
-        "doomslayer", "solidsnake", "mandalorian", "darthvader", "naruto", "goku", "johnwick", "kratos"];
+        "doomslayer", "solidsnake", "mandalorian", "darthvader", "naruto", "goku", "johnwick", "kratos", "hell", "heaven"];
 
-    if (highDetail == true) {
+    if (highDetail) {
         for (let i = 0; i < enemyTextValue.length; i++) {
             if (enemyHp.innerText <= 15 && enemyHpTextValue.innerText === `${enemyTextValue[i]}´S HP:`) {
                 game.style.backgroundImage = `linear-gradient(rgba(0, 0, 0,  0.2), rgba(0, 0, 0, 0.4)), url(./res/img/backgrounds/finished.${damagedAndFinishedEffectEnemiesBGs[i]}BG.gif)`;
                 enemy.src = `./res/img/enemies/enemy.${damagedAndFinishedEffectEnemies[i]}.png`;
                 enemy.style.filter = "grayscale(100%) drop-shadow(0px 20px 10px red)";
 
-                document.body.onmousemove = () => {
+                document.body.onmouseover = () => {
                     if (enemyHp.innerText <= 15) {
                         enemy.style.filter = "grayscale(100%) drop-shadow(0px 20px 10px red)";
                     } else {
@@ -4794,20 +5763,21 @@ function enemyKeyUp() {
                 document.body.onmousemove = () => {
                     if (enemyHp.innerText <= 15) {
                         enemy.style.filter = "grayscale(100%) drop-shadow(0px 20px 10px red)";
-                        game.style.filter = "grayscale(100%)";
                     } else {
                         enemy.style.filter = "none";
-                        game.style.filter = "none";
                     }
                 }
                 break;
             }
+
         }
     }
 }
 let timerDimensionValue = 1000;
 
 gameResult.onclick = () => {
+    winAndLoss.style.display = "block";
+    highDetailBtn.style.display = "block";
     backBtnDC.innerText = "BACK OR ←";
     backBtn.innerText = "BACK OR ←";
     console.log("gamee resultt");
@@ -4942,8 +5912,6 @@ gameResult.onclick = () => {
         levelFOURTEEN.style.textDecoration = "underline";
     }
     if (levelFIFTEENCompleted) {
-        heroIdle.src = "./res/img/bronze.hero.idle.gif";
-        heroAttack.src = "./res/img/bronze.hero.attack.gif";
         marvelPlanet.style.filter = "grayscale(100%)";
         levelFIFTEEN.style.backgroundColor = "white";
         levelFIFTEEN.style.color = "black";
@@ -4964,6 +5932,7 @@ gameResult.onclick = () => {
             document.body.style.backgroundImage = "none";
         }
         deesdavPlanet.onclick = () => {
+            audioGameBackground.volume = 0;
             lastLevelRewardHeadline.innerText = "reward for completing Deesdav Dimension";
             lastLevelRewardSwitch.innerText = "s or S";
             collectionBtn.style.display = "none";
@@ -4994,11 +5963,17 @@ gameResult.onclick = () => {
             infoBtn.style.display = "none";
             winAndLoss.style.display = "none";
             rewardOverview.style.display = "block";
-            rewardOverview.src = "./res/img/silver.hero.idle.gif";
+            rewardOverview.alt = "deesdav-dimension-reward";
+            if (highDetail) {
+                rewardOverview.src = "./res/img/silver.hero.idle.gif";
+            } else if (highDetail == false) {
+                rewardOverview.src = "./res/img/silver.hero.idle.png";
+            }
             const timerDimension = setInterval(() => {
                 countDown.innerText--;
                 if (countDown.innerText == 0) {
                     clearInterval(timerDimension);
+                    audioGameBackground.volume = 0.2;
                     countDown.innerText = 60;
                     deesdavDimension.style.display = "none";
                     countDownText.style.display = "none";
@@ -5039,14 +6014,14 @@ gameResult.onclick = () => {
                 }
 
                 if (deesdavDimensionCompleted) {
-                    heroIdle.src = "./res/img/silver.hero.idle.gif";
-                    heroAttack.src = "./res/img/silver.hero.attack.gif";
+                    audioGameBackground.volume = 0.2;
                     yourXPValue -= 100;
                     yourXP.innerText = yourXPValue;
                     shopBtn.style.display = "block";
                     infoBtn.style.display = "block";
                     inGameStoryRecapBtn.style.display = "block";
                     collectionBtn.style.display = "block";
+                    highDetailBtn.style.display = "block";
                     deesdavDimension.style.display = "none";
                     deesdavPlanet.style.display = "none";
                     lastLevelReward.style.display = "none";
@@ -5060,10 +6035,10 @@ gameResult.onclick = () => {
                     planets.style.gap = "0px";
                     upgradeDamageValue = 9;
                     upgradeHealthValue = 7;
-                    upgradeShieldValue = 12;//12
-                    upgradeCriticalValue = 11;//11
+                    upgradeShieldValue = 12;
+                    upgradeCriticalValue = 11;
                     redColorValue = 10;
-                    greenColorValue = 12;
+                    emeraldColorValue = 12;
                     blueColorValue = 15;
                     yellowColorValue = 17;
                     yourXPIncrease = 4;
@@ -5093,7 +6068,6 @@ gameResult.onclick = () => {
                 dot.style.display = "none";
                 deesdavDimension.innerText += `NOW WAIT AND THE REWARD IS ACHIEVED`;
                 timerDimensionValue = 500;
-                countDown.innerText -= 20;
             }
         }
         dot.onmouseover = () => {
@@ -5220,8 +6194,15 @@ gameResult.onclick = () => {
         dcLevelFOURTEEN.style.textDecoration = "underline";
     }
     if (dcLevelFIFTEENCompleted) {
-        heroIdle.src = "./res/img/gold.hero.idle.gif";
-        heroAttack.src = "./res/img/gold.hero.attack.gif";
+        if (highDetail) {
+            heroIdle.src = "./res/img/gold.hero.idle.gif";
+            heroIdleAppearance.src = "./res/img/gold.hero.idle.gif";
+            heroAttack.src = "./res/img/gold.hero.attack.gif";
+        } else if (highDetail == false) {
+            heroIdle.src = "./res/img/gold.hero.idle.png";
+            heroIdleAppearance.src = "./res/img/gold.hero.idle.png";
+            heroAttack.src = "./res/img/gold.hero.attack.png";
+        }
         dcPlanet.style.filter = "grayscale(100%)";
         multiverseAppeared = true;
         multiverse.style.display = "none";
@@ -5249,6 +6230,7 @@ collectionsBox.onclick = () => {
     inGameStoryRecapBtn.style.zIndex = "1";
 }
 
+const infoOfKilledEnemiesBox = document.getElementById("infoOfKilledEnemiesBox");
 const infoOfKilledEnemyName = document.getElementById("infoOfKilledEnemyName");
 const infoOfKilledEnemyDamagePerSec = document.getElementById("infoOfKilledEnemyDamagePerSec");
 const infoOfKilledEnemyHP = document.getElementById("infoOfKilledEnemyHP");
@@ -5306,12 +6288,14 @@ const locations = ["MARVEL LEVEL ONE", "MARVEL LEVEL TWO", "MARVEL LEVEL THREE",
 
 const hellAndHeavenLocation = ["HELL", "HEAVEN"];
 
-infoOfKilledEnemyName.innerHTML = 0;
-infoOfKilledEnemyDamagePerSec.innerHTML = 0;
-infoOfKilledEnemyHP.innerHTML = 0;
-infoOfKilledEnemyLocation.innerHTML = 0;
-viewPhoto.src = "";
-viewPhoto.style.display = "none";
+infoOfKilledEnemyName.innerHTML = "UNSELECTED";
+infoOfKilledEnemyDamagePerSec.innerHTML = "UNSELECTED";
+infoOfKilledEnemyHP.innerHTML = "UNSELECTED";
+infoOfKilledEnemyLocation.innerHTML = "UNSELECTED";
+viewPhoto.src = "./res/img/enemy.png";
+viewPhoto.style.display = "block";
+viewPhoto.style.width = "360px";
+viewPhoto.style.height = "360px";
 
 for (let i = 0; i < killedEnemies.length; i++) {
     const killedEnemiesId = document.getElementById(`${killedEnemies[i]}KilledEnemy`);
@@ -5330,18 +6314,22 @@ for (let i = 0; i < killedEnemies.length; i++) {
         if (killedEnemiesId.alt == "marvel" || killedEnemiesId.alt == "dc" || killedEnemiesId.alt == "deesdav-dimension" || killedEnemiesId.alt == "hell" || killedEnemiesId.alt == "heaven") {
             infoOfKilledEnemyLocation.innerText = `${locations[i]}`;
         } else {
-            infoOfKilledEnemyLocation.innerText = "MULTIVERSE";
+            infoOfKilledEnemyLocation.innerText = "MULTIVERSE PLANET";
         }
 
         if (killedEnemiesId.alt == "hell") {
-            infoOfKilledEnemyLocation.innerText = "HELL";
+            infoOfKilledEnemyLocation.innerText = "HELL PLANET";
         }
         if (killedEnemiesId.alt == "heaven") {
-            infoOfKilledEnemyLocation.innerText = "HEAVEN";
+            infoOfKilledEnemyLocation.innerText = "HEAVEN PLANET";
         }
-        if (highDetail == true) {
+        if (highDetail) {
             viewPhoto.src = `./res/img/enemies/enemy.${killedEnemies[i]}.gif`;
             viewPhoto.style.backgroundImage = `url(./res/img/backgrounds/finished.${killedEnemiesBGs[i]}BG.gif)`;
+            if (killedEnemiesId.alt == "deesdav-dimension") {
+                viewPhoto.src = `./res/img/enemies/enemy.${killedEnemies[i]}.png`;
+                viewPhoto.style.backgroundImage = `url(./res/img/backgrounds/${killedEnemiesBGs[i]}BG.png)`;
+            }
         } else if (highDetail == false) {
             viewPhoto.src = `./res/img/enemies/enemy.${killedEnemies[i]}.png`;
             viewPhoto.style.backgroundImage = `url(./res/img/backgrounds/${killedEnemiesBGs[i]}BG.png)`;
@@ -5349,20 +6337,19 @@ for (let i = 0; i < killedEnemies.length; i++) {
         viewPhoto.style.backgroundSize = "cover";
         viewPhoto.style.backgroundRepeat = "no-repeat";
         viewPhoto.style.backgroundPosition = "center";
-        if (killedEnemiesId.alt == "multiverse" || killedEnemiesId.alt == "deesdav-dimension"
-            || killedEnemiesId.alt == "hell" || killedEnemiesId.alt == "heaven") {
-            viewPhoto.src = `./res/img/enemies/enemy.${killedEnemies[i]}.png`;
-        }
         viewPhoto.style.display = "block";
         killedEnemiesId.style.filter = "blur(0px)";
     }
     killedEnemiesId.onmouseout = () => {
-        infoOfKilledEnemyName.innerHTML = null;
-        infoOfKilledEnemyDamagePerSec.innerHTML = null;
-        infoOfKilledEnemyHP.innerHTML = null;
-        infoOfKilledEnemyLocation.innerHTML = null;
-        viewPhoto.src = "";
-        viewPhoto.style.display = "none";
+        infoOfKilledEnemyName.innerHTML = "UNSELECTED";
+        infoOfKilledEnemyDamagePerSec.innerHTML = "UNSELECTED";
+        infoOfKilledEnemyHP.innerHTML = "UNSELECTED";
+        infoOfKilledEnemyLocation.innerHTML = "UNSELECTED";
+        viewPhoto.src = "./res/img/enemy.png";
+        viewPhoto.style.backgroundImage = "none";
+        viewPhoto.style.display = "block";
+        viewPhoto.style.width = "360px";
+        viewPhoto.style.height = "360px";
         killedEnemiesId.style.filter = "blur(3px)";
         killedEnemiesId.style.backgroundImage = "none";
     }
